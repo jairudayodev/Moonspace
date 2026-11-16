@@ -88,6 +88,14 @@
                 {/if}
             </li>
 
+            {if $user->_logged_in}
+                <li {if $page == "night"}class="active"{/if}>
+                    <a href="{$system['system_url']}/noite">
+                        <i class="fas fa-moon mr10" style="width: 24px; text-align: center;"></i>Pergunta da Noite
+                    </a>
+                </li>
+            {/if}
+
             {if $user->_data['can_write_articles']}
                 <li {if $page == "index" && $view == "articles"}class="active"{/if}>
                     <a href="{$system['system_url']}/articles">
