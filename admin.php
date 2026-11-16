@@ -4,7 +4,7 @@
  * admin
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // set override_shutdown

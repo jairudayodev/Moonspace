@@ -4,7 +4,7 @@
  * share
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootloader

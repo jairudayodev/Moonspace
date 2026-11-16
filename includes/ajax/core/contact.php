@@ -4,7 +4,7 @@
  * ajax -> core -> contact
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

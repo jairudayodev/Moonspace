@@ -4,7 +4,7 @@
  * ajax -> chat -> get messages
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

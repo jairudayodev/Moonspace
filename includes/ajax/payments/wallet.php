@@ -4,7 +4,7 @@
  * ajax -> payments -> wallet
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

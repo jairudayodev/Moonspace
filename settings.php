@@ -4,7 +4,7 @@
  * settings
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // remove timeout limit

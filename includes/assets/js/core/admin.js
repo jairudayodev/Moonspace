@@ -2,7 +2,7 @@
  * admin js
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // initialize API URLs

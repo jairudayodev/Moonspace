@@ -4,7 +4,7 @@
  * ajax -> users -> started
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

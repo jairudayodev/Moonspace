@@ -4,7 +4,7 @@
  * functions
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 
@@ -543,7 +543,7 @@ function _error()
                                 <li>" . "Are you sure that you have typed the correct hostname?" . "</li>
                                 <li>" . "Are you sure that the database server is running?" . "</li>
                             </ul>
-                            <p>" . "If you're unsure what these terms mean you should probably contact your host. If you still need help you can always visit the" . " <a href='http://support.zamblek.com'>" . "Moonspace Support" . ".</a></p>
+                            <p>" . "If you're unsure what these terms mean you should probably contact your host. If you still need help, please contact the Moonspace support.</p>
                             </div>";
                 break;
 

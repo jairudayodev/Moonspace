@@ -4,7 +4,7 @@
  * config
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // ** MySQL settings ** //

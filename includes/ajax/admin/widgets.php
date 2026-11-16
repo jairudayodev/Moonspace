@@ -4,7 +4,7 @@
  * ajax -> admin -> widgets
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

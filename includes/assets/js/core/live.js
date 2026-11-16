@@ -2,7 +2,7 @@
  * live js
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // initialize live global vars

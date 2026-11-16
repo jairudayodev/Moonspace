@@ -4,7 +4,7 @@
  * ajax -> users -> mutual friends
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

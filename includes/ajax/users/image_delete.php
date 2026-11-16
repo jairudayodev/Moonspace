@@ -4,7 +4,7 @@
  * ajax -> users -> image delete
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

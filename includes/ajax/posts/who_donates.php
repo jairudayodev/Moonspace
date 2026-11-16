@@ -4,7 +4,7 @@
  * ajax -> posts -> who donates
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

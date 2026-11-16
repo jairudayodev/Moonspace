@@ -4,7 +4,7 @@
  * ajax -> admin -> games
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

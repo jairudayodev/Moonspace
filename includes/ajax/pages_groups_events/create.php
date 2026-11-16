@@ -4,7 +4,7 @@
  * ajax -> pages_groups_events -> create|edit
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

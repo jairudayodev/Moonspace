@@ -4,7 +4,7 @@
  * bootstrap
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // set system version

@@ -4,7 +4,7 @@
  * ajax -> posts -> scraper
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

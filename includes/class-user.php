@@ -4,7 +4,7 @@
  * class -> user
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 class User

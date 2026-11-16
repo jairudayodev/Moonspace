@@ -4,7 +4,7 @@
  * ajax -> posts -> story
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

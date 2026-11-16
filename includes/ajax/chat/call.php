@@ -3,8 +3,8 @@
 /**
  * ajax -> chat -> call
  * 
- * @package Sngine
- * @author Zamblek
+ * @package Moonspace
+ * @author Jair Roger
  */
 
 // fetch bootstrap

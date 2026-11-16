@@ -4,7 +4,7 @@
  * ajax -> data -> search
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

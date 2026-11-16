@@ -4,7 +4,7 @@
  * ajax -> admin -> currencies
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

@@ -4,7 +4,7 @@
  * moderator
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // initialize

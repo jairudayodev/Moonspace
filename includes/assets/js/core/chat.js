@@ -1,8 +1,8 @@
 /**
  * chat js
  * 
- * @package Sngine
- * @author Zamblek
+ * @package Moonspace
+ * @author Jair Roger
  */
 
 // initialize API URLs

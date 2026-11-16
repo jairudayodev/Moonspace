@@ -4,7 +4,7 @@
  * ajax -> core -> activation email reset
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

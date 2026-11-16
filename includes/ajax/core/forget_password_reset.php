@@ -4,7 +4,7 @@
  * ajax -> core -> forget password reset
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

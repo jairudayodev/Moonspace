@@ -4,7 +4,7 @@
  * ajax -> admin -> tools
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // set execution time

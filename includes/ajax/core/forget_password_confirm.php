@@ -4,7 +4,7 @@
  * ajax -> core -> forget password confirm
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

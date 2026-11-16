@@ -4,7 +4,7 @@
  * ajax -> admin -> verify
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

@@ -4,7 +4,7 @@
  * ajax -> core -> theme
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 // fetch bootstrap

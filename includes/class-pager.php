@@ -4,7 +4,7 @@
  * class -> pager
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 class Pager

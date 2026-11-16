@@ -4,7 +4,7 @@
  * class -> image
  * 
  * @package Moonspace
- * @author Zamblek
+ * @author Jair Roger
  */
 
 class Image
