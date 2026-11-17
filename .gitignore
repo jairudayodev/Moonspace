@@ -1,0 +1,6 @@
+# Credenciais do servidor (use includes/config.example.php como modelo)
+includes/config.php
+
+# Cache do Smarty (gerado automaticamente)
+content/themes/default/templates_compiled/*
+!content/themes/default/templates_compiled/index.html

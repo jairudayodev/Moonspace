@@ -18,8 +18,10 @@ define('BASEPATH', dirname($_SERVER['PHP_SELF']));
 
 // check the config file
 if (!file_exists(ABSPATH . 'includes/config.php')) {
-    /* the config file doesn't exist -> start the installer */
-    header('Location: ./install');
+    /* the config file doesn't exist -> show how to create it (the installer was removed) */
+    header('HTTP/1.1 503 Service Unavailable');
+    header('Content-Type: text/plain; charset=utf-8');
+    exit('Moonspace: arquivo includes/config.php não encontrado. Copie includes/config.example.php para includes/config.php e preencha os dados do servidor.');
 }
 
 
