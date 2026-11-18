@@ -10,6 +10,9 @@
 // fetch bootloader
 require('bootloader.php');
 
+// optional route params (avoid PHP 8 undefined key warnings)
+$_GET['view'] = isset($_GET['view']) ? $_GET['view'] : '';
+
 // user access
 if ($user->_logged_in || !$system['system_public']) {
 	user_access();

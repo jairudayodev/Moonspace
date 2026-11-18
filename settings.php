@@ -15,6 +15,10 @@ if (isset($_GET['view']) && $_GET['view'] == "download") {
 // fetch bootloader
 require('bootloader.php');
 
+// optional route params (avoid PHP 8 undefined key warnings)
+$_GET['view'] = isset($_GET['view']) ? $_GET['view'] : '';
+$_GET['sub_view'] = isset($_GET['sub_view']) ? $_GET['sub_view'] : '';
+
 // user access
 user_access();
 

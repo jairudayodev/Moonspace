@@ -13,7 +13,8 @@ class User
     public $_logged_in = false;
     public $_is_admin = false;
     public $_is_moderator = false;
-    public $_data = [];
+    /* visitors keep these keys as null (same value PHP returned before) so PHP 8 doesn't warn on every read */
+    public $_data = ['user_id' => null, 'user_group' => null];
 
     private $_cookie_user_id = "c_user";
     private $_cookie_user_token = "xs";
@@ -3405,6 +3406,9 @@ class User
         if ($recipients_num == 0) {
             return false;
         }
+        $conversation['typing_name_list'] = '';
+        $conversation['seen_name_list'] = '';
+        $conversation['name_list'] = '';
         $i = 1;
         while ($recipient = $get_recipients->fetch_assoc()) {
             /* get recipient picture */
@@ -5226,6 +5230,7 @@ class User
             _error(400);
         }
         $max_results = $system['newsfeed_results'];
+        $query = null;
         if (isset($args['query'])) {
             $max_results = $system['search_results'];
             if (is_empty($args['query'])) {
@@ -10803,6 +10808,8 @@ class User
         $tree = [];
         $get_nodes = $db->query(sprintf("SELECT * FROM forums WHERE forum_section = %s ORDER BY forum_order ASC", secure($node_id))) or _error("SQL_ERROR_THROWEN");
         if ($get_nodes->num_rows > 0) {
+            $tree['total_threads'] = 0;
+            $tree['total_replies'] = 0;
             while ($node = $get_nodes->fetch_assoc()) {
                 $node['iteration'] = $iteration;
                 $node['title_url'] = get_url_text($node['forum_name']);
@@ -10957,7 +10964,7 @@ class User
         $total_items = $get_total->fetch_assoc()['count'];
         if ($total_items > 0) {
             require('class-pager.php');
-            $params['selected_page'] = ((int) $_GET['page'] == 0) ? 1 : $_GET['page'];
+            $params['selected_page'] = (!isset($_GET['page']) || (int) $_GET['page'] == 0) ? 1 : $_GET['page'];
             $params['total_items'] = $total_items;
             $params['items_per_page'] = $system['max_results'] * 2;
             /* prepare pager URL */
@@ -11222,7 +11229,7 @@ class User
         $total_items = $get_total->fetch_assoc()['count'];
         if ($total_items > 0) {
             require('class-pager.php');
-            $params['selected_page'] = ((int) $_GET['page'] == 0) ? 1 : $_GET['page'];
+            $params['selected_page'] = (!isset($_GET['page']) || (int) $_GET['page'] == 0) ? 1 : $_GET['page'];
             $params['total_items'] = $total_items;
             $params['items_per_page'] = $system['max_results'] * 2;
             /* prepare pager URL */

@@ -153,7 +153,8 @@ Moonspace/
     ├── themes/default/
     │   ├── templates/        Templates Smarty (.tpl)
     │   ├── templates_compiled/  Cache do Smarty (gerado sozinho; pode ser apagado)
-    │   ├── css/  images/
+    │   ├── css/              style.min.css (tema original) + moonspace.css (visual do Moonspace, carregado por cima)
+    │   ├── images/
     ├── languages/locale/     Traduções (.po)
     └── uploads/              Arquivos enviados pelos usuários (NÃO apagar)
 ```

@@ -10,6 +10,9 @@
 // fetch bootloader
 require('bootloader.php');
 
+// optional route params (avoid PHP 8 undefined key warnings)
+$_GET['tab'] = isset($_GET['tab']) ? $_GET['tab'] : '';
+
 // user access
 if ($user->_logged_in || !$system['system_public']) {
 	user_access();

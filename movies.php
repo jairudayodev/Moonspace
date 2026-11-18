@@ -105,7 +105,7 @@ try {
 	if ($_GET['view'] != "movie") {
 		// prepare pager
 		require('includes/class-pager.php');
-		$params['selected_page'] = ((int) $_GET['page'] == 0) ? 1 : $_GET['page'];
+		$params['selected_page'] = (!isset($_GET['page']) || (int) $_GET['page'] == 0) ? 1 : $_GET['page'];
 		$total = $db->query("SELECT COUNT(*) as count FROM movies " . $where_query) or _error("SQL_ERROR");
 		$params['total_items'] = $total->fetch_assoc()['count'];
 		$params['items_per_page'] = $system['min_results_even'];

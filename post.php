@@ -52,7 +52,7 @@ try {
 }
 
 // page header
-page_header($post['og_title'], $post['og_description'], $post['og_image']);
+page_header($post['og_title'], $post['og_description'], isset($post['og_image']) ? $post['og_image'] : '');
 
 // page footer
 page_footer("post");

@@ -40,9 +40,9 @@
     {/if}
     <!-- Favicon -->
 
-    <!-- Fonts [Poppins|Roboto|Font-Awesome] -->
+    <!-- Fonts [Montserrat|Roboto|Font-Awesome] -->
     {if $system['language']['dir'] == "LTR"}
-        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" crossorigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" crossorigin="anonymous" />
     {else}
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" crossorigin="anonymous" />
     {/if}
@@ -57,6 +57,8 @@
         <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css" integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
         <link rel="stylesheet" type='text/css' href="{$system['system_url']}/content/themes/{$system['theme']}/css/style.rtl.min.css">
     {/if}
+    <!-- Moonspace visual layer (loaded after the theme, before the admin custom CSS) -->
+    <link rel="stylesheet" type='text/css' href="{$system['system_url']}/content/themes/{$system['theme']}/css/moonspace.css?v={$system['system_version']}.3">
     <!-- CSS -->
 
     <!-- CSS Customized -->

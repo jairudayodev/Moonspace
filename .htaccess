@@ -85,6 +85,24 @@ RewriteRule ^started/finished?$ started.php?finished=true [L,QSA]
 RewriteRule ^static/([^/]+)/?$ static.php?url=$1 [L,QSA]
 # Contacts
 RewriteRule ^contacts/?$ contact.php [L,QSA]
+# Blogs
+RewriteRule ^blogs/?$ blogs.php [L,QSA]
+RewriteRule ^blogs/new/?$ blogs.php?view=new [L,QSA]
+RewriteRule ^blogs/edit/([^/]+)/?$ blogs.php?view=edit&post_id=$1 [L,QSA]
+RewriteRule ^blogs/category/([^/]+)/([^/]+)/?$ blogs.php?view=category&category_id=$1 [L,QSA]
+RewriteRule ^blogs/([^/]+)/([^/]+)/?$ blogs.php?view=article&post_id=$1 [L,QSA]
+# Movies
+RewriteRule ^movies/?$ movies.php [L,QSA]
+RewriteRule ^movies/([0-9]+)/?$ movies.php?page=$1 [L,QSA]
+RewriteRule ^movies/search/([^/]+)/?$ movies.php?view=search&query=$1 [L,QSA]
+RewriteRule ^movies/search/([^/]+)/([0-9]+)/?$ movies.php?view=search&query=$1&page=$2 [L,QSA]
+RewriteRule ^movies/genre/([^/]+)/([^/]+)/?$ movies.php?view=genre&genre_id=$1 [L,QSA]
+RewriteRule ^movies/genre/([^/]+)/([^/]+)/([0-9]+)/?$ movies.php?view=genre&genre_id=$1&page=$3 [L,QSA]
+RewriteRule ^movie/([^/]+)/([^/]+)/?$ movies.php?view=movie&movie_id=$1 [L,QSA]
+# Games
+RewriteRule ^games/?$ games.php [L,QSA]
+RewriteRule ^games/played/?$ games.php?view=played [L,QSA]
+RewriteRule ^games/([^/]+)/([^/]+)/?$ games.php?view=game&game_id=$1 [L,QSA]
 # Pergunta da Noite
 RewriteRule ^noite/?$ night.php [L,QSA]
 RewriteRule ^noite/([^/]+)/?$ night.php?view=$1 [L,QSA]

@@ -5,20 +5,43 @@
 {if !$user->_logged_in && !$system['newsfeed_public']}
     
     <div class="container pt30">
-        <div class="index-intro">
-            <h1>
-                {__("Welcome to")} {$system['system_title']}
-            </h1>
-            <p>
-                {__($system['system_description'])}
-            </p>
-        </div>
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-md-6 col-lg-7">
-                <img style="width: 100%; max-height: 500px;" class="d-none d-md-block" src="{$system['system_url']}/content/themes/{$system['theme']}/images/home/drawkit-nature-man-colour.svg">
+                <!-- hero -->
+                <div class="ms-hero">
+                    <div class="ms-kicker"><i class="fas fa-moon mr5"></i>{$system['system_title']}<span class="ms-kicker-sep">&middot;</span>Rede social noturna</div>
+                    <h1 class="ms-hero-title">
+                        A noite é
+                        <span class="ms-outline">pra conversar.</span>
+                    </h1>
+                    <div class="ms-divider left"><i class="fas fa-star"></i></div>
+                    <p class="ms-hero-lead">
+                        Perfis, feed, mensagens e grupos, com um ritual próprio: toda noite às 20h chega uma pergunta nova, a mesma para todo mundo.
+                    </p>
+                    <div class="ms-hero-points">
+                        <div class="ms-hero-point">
+                            <div class="ms-kicker">Todo dia às 20h</div>
+                            <strong>Pergunta da Noite</strong>
+                        </div>
+                        <div class="ms-hero-point">
+                            <div class="ms-kicker">Grupos e fóruns</div>
+                            <strong>Comunidades</strong>
+                        </div>
+                        <div class="ms-hero-point">
+                            <div class="ms-kicker">Privado</div>
+                            <strong>Mensagens</strong>
+                        </div>
+                    </div>
+                </div>
+                <!-- hero -->
             </div>
 
-            <div class="col-md-6 col-lg-5">
+            <div class="col-md-6 col-lg-5 position-relative">
+                <div class="ms-moon-art" aria-hidden="true">
+                    <span class="ms-moon-ring"></span>
+                    <span class="ms-moon-ring r2"></span>
+                    <span class="ms-moon-disc"></span>
+                </div>
                 {include file='_sign_form.tpl' do="in"}
                 <div class="text-center">
                     {if $system['play_store_badge_enabled']}

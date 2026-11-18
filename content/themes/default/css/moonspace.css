@@ -1,0 +1,1572 @@
+/**
+ * Moonspace — camada visual
+ *
+ * Carregado depois de style.min.css (ver _head.tpl). Não edita o tema original:
+ * apagar este arquivo e o <link> volta ao visual antigo.
+ *
+ * Linguagem visual: fundo quase preto com brilhos roxos, painéis translúcidos
+ * com filete dourado ("luar"), títulos pesados em caixa alta e rótulos pequenos
+ * com espaçamento largo. Funciona nos modos dia e noite através das variáveis.
+ *
+ * Índice:
+ *  01. Tokens (dia / noite)
+ *  02. Base
+ *  03. Cabeçalho
+ *  04. Menu lateral
+ *  05. Cards / painéis
+ *  06. Botões
+ *  07. Formulários
+ *  08. Abas, dropdowns, modais, alertas
+ *  09. Feed (publicador, posts, comentários, stories)
+ *  10. Chat lateral
+ *  11. Página de entrada (visitante)
+ *  12. Pergunta da Noite
+ *  13. Perfil
+ *  14. Rodapé e utilidades
+ *  15. Faixa de topo das páginas (fóruns, filmes, busca, carteira...)
+ *  16. Botões e selos de estado
+ *  17. Menus laterais secundários (configurações, gêneros...)
+ *  18. Fóruns, conversas, estados vazios, imagens padrão, alertas
+ */
+
+/* 01. TOKENS
+   ------------------------------------------------------------------ */
+:root {
+  --body-font-family: Montserrat, Helvetica, Arial, sans-serif;
+  --ms-font: Montserrat, Helvetica, Arial, sans-serif;
+
+  /* roxo Moonspace (o #41009a original virou o tom escuro) */
+  --ms-purple: #6a1fd1;
+  --ms-purple-dark: #41009a;
+  --ms-purple-light: #9d6bff;
+  --ms-purple-rgb: 106, 31, 209;
+
+  /* luar: o dourado da referência, puxado para um tom mais claro de lua */
+  --ms-moon: #d4bc84;
+  --ms-moon-light: #ecdcae;
+
+  --ms-green: #4fc98a;
+  --ms-green-text: #1d8a55;
+  --ms-red: #ef4565;
+  --ms-red-text: #c8284a;
+  --ms-radius: 6px;
+
+  /* modo dia */
+  --ms-bg: #f5f3fa;
+  --ms-glow-1: rgba(var(--ms-purple-rgb), 0.10);
+  --ms-glow-2: rgba(var(--ms-purple-rgb), 0.05);
+  --ms-panel: #ffffff;
+  --ms-panel-hover: #faf8ff;
+  --ms-surface: #ffffff;
+  --ms-surface-2: #f3f0fa;
+  --ms-input: #f7f5fc;
+  --ms-border: rgba(40, 20, 80, 0.10);
+  --ms-border-strong: rgba(40, 20, 80, 0.18);
+  --ms-text: #1b1526;
+  --ms-muted: #6c6680;
+  --ms-dim: #a29db3;
+  --ms-accent-text: #5a17c0;
+  --ms-ornament: #a8873e;
+  --ms-shadow: 0 10px 30px rgba(40, 20, 80, 0.06);
+}
+
+body.night-mode {
+  --ms-bg: #060509;
+  --ms-glow-1: rgba(var(--ms-purple-rgb), 0.16);
+  --ms-glow-2: rgba(var(--ms-purple-rgb), 0.07);
+  --ms-panel: rgba(255, 255, 255, 0.035);
+  --ms-panel-hover: rgba(255, 255, 255, 0.055);
+  --ms-surface: #0f0c16;
+  --ms-surface-2: #17131f;
+  --ms-input: rgba(255, 255, 255, 0.04);
+  --ms-border: rgba(255, 255, 255, 0.09);
+  --ms-border-strong: rgba(255, 255, 255, 0.16);
+  --ms-text: #f3f1f8;
+  --ms-muted: #8d889b;
+  --ms-dim: #565264;
+  --ms-accent-text: var(--ms-purple-light);
+  --ms-ornament: var(--ms-moon);
+  --ms-green-text: #7ee2ad;
+  --ms-red-text: #ff8fa6;
+  --ms-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* 02. BASE
+   ------------------------------------------------------------------ */
+body,
+body.night-mode {
+  /* variáveis do tema original apontando para a paleta nova */
+  --link-color: var(--ms-accent-text);
+  --default-color: var(--ms-accent-text);
+  --body-bg-color: var(--ms-bg);
+  --body-bg-color-dark: var(--ms-bg);
+  --body-color: var(--ms-text);
+  --body-color-dark: var(--ms-text);
+  --header-bg-color: #08060d;
+  --header-bg-color-dark: #08060d;
+  font-family: var(--ms-font);
+  color: var(--ms-text);
+  background-color: var(--ms-bg);
+  background-image:
+    radial-gradient(circle at 85% 0%, var(--ms-glow-1), transparent 32%),
+    radial-gradient(circle at 5% 80%, var(--ms-glow-2), transparent 38%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+body .h1, body .h2, body .h3, body .h4, body .h5, body .h6,
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  font-family: var(--ms-font);
+  color: var(--ms-text);
+  font-weight: 700;
+}
+
+body a,
+body.night-mode a {
+  color: var(--ms-accent-text);
+}
+body a:hover {
+  color: var(--ms-purple-light);
+}
+
+body .text-muted,
+body.night-mode .text-muted {
+  color: var(--ms-muted) !important;
+}
+
+body .border-bottom,
+body .border-top,
+body .border {
+  border-color: var(--ms-border) !important;
+}
+
+body ::selection {
+  background: rgba(var(--ms-purple-rgb), 0.45);
+  color: #fff;
+}
+
+/* barra de rolagem fina, no tom do tema */
+body ::-webkit-scrollbar { width: 8px; height: 8px; }
+body ::-webkit-scrollbar-track { background: transparent; }
+body ::-webkit-scrollbar-thumb { background: var(--ms-border-strong); border-radius: 8px; }
+body ::-webkit-scrollbar-thumb:hover { background: rgba(var(--ms-purple-rgb), 0.6); }
+
+/* rótulo pequeno em caixa alta ("kicker" da referência) */
+.ms-kicker {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ms-accent-text);
+}
+.ms-kicker .ms-kicker-sep {
+  color: var(--ms-dim);
+  margin: 0 6px;
+}
+
+/* divisor com ornamento central */
+.ms-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ms-ornament);
+  font-size: 10px;
+}
+.ms-divider::before,
+.ms-divider::after {
+  content: "";
+  height: 1px;
+  flex: 0 0 80px;
+  background: linear-gradient(90deg, transparent, var(--ms-ornament));
+  opacity: 0.6;
+}
+.ms-divider::after {
+  background: linear-gradient(90deg, var(--ms-ornament), transparent);
+}
+.ms-divider.left::before { display: none; }
+.ms-divider.left { justify-content: flex-start; }
+
+/* 03. CABEÇALHO (sempre escuro: é a faixa do céu)
+   ------------------------------------------------------------------ */
+body .main-header,
+body.night-mode .main-header,
+body.night-mode:not(.visitor) .main-header {
+  background: rgba(8, 6, 13, 0.94);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+body .main-header .logo {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  line-height: 1;
+  color: #fff;
+  text-decoration: none;
+}
+.ms-brand-mark {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+  border: 1px solid var(--ms-purple-light);
+  border-radius: 2px;
+  color: var(--ms-moon-light);
+  font-size: 15px;
+  background: linear-gradient(135deg, rgba(var(--ms-purple-rgb), 0.35), rgba(65, 0, 154, 0.15));
+  box-shadow: 0 0 18px rgba(var(--ms-purple-rgb), 0.35);
+}
+.ms-brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.ms-brand-name {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.ms-brand-sub {
+  margin-top: 5px;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .ms-brand-sub { display: none; }
+}
+
+body .main-header .search-wrapper .form-control,
+body.night-mode:not(.visitor) .main-header .search-wrapper .form-control {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  color: #fff;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+body .main-header .search-wrapper .form-control:focus {
+  border-color: rgba(157, 107, 255, 0.6);
+  background: rgba(255, 255, 255, 0.07);
+}
+body .main-header .search-wrapper .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+body .main-header .search-input-icon {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+body .navbar-wrapper > ul > li > a,
+body .main-header .menu-icon,
+body .main-header .home-icon {
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.85);
+}
+body .navbar-wrapper > ul > li > a:hover,
+body.night-mode .navbar-wrapper > ul > li > a:hover,
+body .navbar-wrapper > ul > li.dropdown.show > a,
+body.night-mode .navbar-wrapper > ul > li.dropdown.show > a,
+body .main-header .menu-icon:hover,
+body .main-header .home-icon:hover {
+  background-color: rgba(var(--ms-purple-rgb), 0.22);
+}
+body .navbar-wrapper .counter {
+  border-radius: 2px;
+  font-weight: 800;
+}
+body .navbar-wrapper .counter.red { background: var(--ms-red); }
+body .navbar-wrapper .counter.blue,
+body .navbar-wrapper .counter.purple { background: var(--ms-purple); }
+
+/* 04. MENU LATERAL
+   ------------------------------------------------------------------ */
+body .main-side-nav a,
+body .main-side-nav .static,
+body.night-mode .main-side-nav a,
+body.night-mode .main-side-nav .static {
+  color: var(--ms-muted);
+  font-weight: 500;
+  border-radius: 4px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+body .main-side-nav a:hover {
+  color: var(--ms-text);
+  background: var(--ms-panel-hover);
+}
+body .main-side-nav > li.active > a,
+body.night-mode .main-side-nav > li.active > a {
+  position: relative;
+  color: var(--ms-text);
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(var(--ms-purple-rgb), 0.22), rgba(var(--ms-purple-rgb), 0.04));
+  border-radius: 0 4px 4px 0;
+  box-shadow: inset 2px 0 0 var(--ms-purple-light);
+}
+body .main-side-nav ul a,
+body.night-mode .main-side-nav ul a {
+  border-left-color: var(--ms-border);
+}
+body .main-side-nav ul > li.active > a,
+body .main-side-nav a[data-toggle="collapse"]:after {
+  color: var(--ms-accent-text);
+}
+/* títulos de seção (FAVORITES, EXPLORE...) */
+body .main-side-nav li.ptb5 small,
+body .main-side-nav li.ptb5 .text-muted {
+  display: block;
+  margin-top: 10px;
+  padding-left: 16px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--ms-accent-text) !important;
+}
+
+/* 05. CARDS / PAINÉIS
+   ------------------------------------------------------------------ */
+body .card,
+body.night-mode .card,
+body .post,
+body.night-mode .post,
+body .publisher,
+body.night-mode .publisher,
+body .content-tabs,
+body.night-mode .content-tabs {
+  background: var(--ms-panel);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  box-shadow: var(--ms-shadow);
+}
+body .main-side-nav-card,
+body.night-mode .main-side-nav-card {
+  border: 0;
+  box-shadow: none;
+}
+/* filete de luar no canto superior esquerdo de cada painel */
+body .card:not(.main-side-nav-card):not(.card-register)::before,
+body .post::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 22px;
+  width: 54px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ms-moon), var(--ms-moon-light));
+  border-radius: 2px;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 1;
+}
+body .post { position: relative; }
+
+body .card-header,
+body.night-mode .card-header {
+  background: transparent;
+  border-color: var(--ms-border);
+  color: var(--ms-text);
+}
+body .card-header.with-icon {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+body .card-header.with-icon > i:first-child,
+body .card-header.with-icon > .fa:first-child,
+body .card-header.with-icon > .fas:first-child {
+  color: var(--ms-accent-text) !important;
+}
+body .card-footer,
+body.night-mode .card-footer {
+  background: transparent;
+  border-color: var(--ms-border);
+}
+body .card-body .divider,
+body.night-mode .card-body .divider,
+body .modal-body .divider,
+body.night-mode .modal-body .divider {
+  border-color: var(--ms-border);
+}
+
+body .list-group-item,
+body.night-mode .list-group-item {
+  background: transparent;
+  border-color: var(--ms-border);
+  color: var(--ms-text);
+}
+
+/* 06. BOTÕES
+   ------------------------------------------------------------------ */
+body .btn {
+  font-family: var(--ms-font);
+  border-radius: 4px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+body .btn-primary,
+body .btn-primary:focus,
+body .btn-primary:not(:disabled):not(.disabled):active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--ms-purple), var(--ms-purple-dark));
+  border: 1px solid var(--ms-purple);
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-size: 11px;
+  box-shadow: 0 10px 30px rgba(var(--ms-purple-rgb), 0.22);
+}
+body .btn-primary:not(.btn-sm):not(.btn-icon) {
+  padding: 10px 22px;
+}
+body .btn-primary:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #7b33e6, var(--ms-purple));
+  border-color: var(--ms-purple-light);
+  box-shadow: 0 12px 34px rgba(var(--ms-purple-rgb), 0.38);
+  transform: translateY(-1px);
+}
+body .btn-primary.btn-icon,
+body .btn-primary.btn-sm {
+  letter-spacing: 0.5px;
+}
+
+body .btn-light,
+body.night-mode .btn-light,
+body .btn-default,
+body.night-mode .btn-default,
+body .btn-secondary {
+  background: var(--ms-panel);
+  border: 1px solid var(--ms-border-strong);
+  color: var(--ms-text);
+}
+body .btn-light:hover,
+body .btn-default:hover,
+body .btn-secondary:hover {
+  background: var(--ms-panel-hover);
+  border-color: var(--ms-purple-light);
+  color: var(--ms-text);
+}
+body .btn-outline-primary {
+  color: var(--ms-accent-text);
+  border-color: var(--ms-purple-light);
+}
+body .btn-outline-primary:hover {
+  color: #fff;
+  background: var(--ms-purple);
+  border-color: var(--ms-purple);
+}
+
+/* 07. FORMULÁRIOS
+   ------------------------------------------------------------------ */
+body .form-control,
+body.night-mode .form-control,
+body .custom-select,
+body.night-mode .custom-select {
+  background-color: var(--ms-input);
+  border: 1px solid var(--ms-border);
+  border-radius: 4px;
+  color: var(--ms-text);
+  font-family: var(--ms-font);
+}
+body .form-control:focus,
+body.night-mode .form-control:focus,
+body .custom-select:focus {
+  background-color: var(--ms-input);
+  border-color: var(--ms-purple-light);
+  box-shadow: 0 0 0 3px rgba(var(--ms-purple-rgb), 0.18);
+  color: var(--ms-text);
+}
+body .form-control::placeholder {
+  color: var(--ms-dim);
+}
+body .input-group-text,
+body.night-mode .input-group-text {
+  background: var(--ms-input);
+  border-color: var(--ms-border);
+  color: var(--ms-muted);
+}
+body .form-control-label,
+body label {
+  color: var(--ms-text);
+}
+
+/* 08. ABAS, DROPDOWNS, MODAIS, ALERTAS
+   ------------------------------------------------------------------ */
+body .content-tabs {
+  padding: 0 10px;
+}
+body .content-tabs > ul > li > a,
+body.night-mode .content-tabs > ul > li > a {
+  color: var(--ms-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+}
+body .content-tabs > ul > li > a:hover {
+  color: var(--ms-text);
+}
+body .content-tabs > ul > li.active > a {
+  color: var(--ms-text);
+  border-bottom-color: var(--ms-purple-light);
+}
+
+body .nav-tabs,
+body.night-mode .nav-tabs {
+  border-color: var(--ms-border);
+}
+body .nav-tabs .nav-link.active,
+body.night-mode .nav-tabs .nav-link.active {
+  background: transparent;
+  color: var(--ms-text);
+  border-color: transparent transparent var(--ms-purple-light);
+  border-bottom-width: 2px;
+}
+body .nav-pills .nav-link.active,
+body .nav-pills .show > .nav-link {
+  background: linear-gradient(135deg, var(--ms-purple), var(--ms-purple-dark));
+}
+
+body .dropdown-menu,
+body.night-mode .dropdown-menu {
+  background: var(--ms-surface);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  color: var(--ms-text);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+body .dropdown-item,
+body.night-mode .dropdown-item {
+  color: var(--ms-text);
+}
+body .dropdown-item:hover,
+body .dropdown-item:focus,
+body.night-mode .dropdown-item:hover {
+  background: rgba(var(--ms-purple-rgb), 0.16);
+  color: var(--ms-text);
+}
+body .dropdown-divider,
+body.night-mode .dropdown-divider,
+body .dropdown-widget-header,
+body.night-mode .dropdown-widget-header,
+body .dropdown-widget-body .title,
+body.night-mode .dropdown-widget-body .title {
+  border-color: var(--ms-border);
+}
+body .dropdown-widget-footer,
+body.night-mode .dropdown-widget-footer {
+  background: var(--ms-surface-2);
+  border-color: var(--ms-border);
+}
+
+body .modal-content,
+body.night-mode .modal-content {
+  background: var(--ms-surface);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  color: var(--ms-text);
+}
+body .modal-header,
+body .modal-footer,
+body.night-mode .modal-header,
+body.night-mode .modal-footer {
+  border-color: var(--ms-border);
+}
+body .modal-header .modal-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+body .close,
+body.night-mode .close {
+  color: var(--ms-text);
+  text-shadow: none;
+}
+body .modal-backdrop.show {
+  opacity: 0.7;
+}
+
+body .alert {
+  border-radius: 4px;
+  border-width: 1px;
+}
+body.night-mode .alert-danger {
+  background: rgba(239, 69, 101, 0.1);
+  border-color: rgba(239, 69, 101, 0.35);
+  color: #ff9bb0;
+}
+body.night-mode .alert-success {
+  background: rgba(79, 201, 138, 0.1);
+  border-color: rgba(79, 201, 138, 0.35);
+  color: #8ee6b7;
+}
+
+body .badge {
+  border-radius: 2px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+body .badge-warning {
+  background: rgba(212, 188, 132, 0.15);
+  color: var(--ms-ornament);
+  border: 1px solid rgba(212, 188, 132, 0.4);
+}
+body .badge-light,
+body.night-mode .badge-light {
+  background: rgba(var(--ms-purple-rgb), 0.15);
+  color: var(--ms-accent-text);
+}
+
+body .tooltip-inner {
+  background: #17131f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--ms-font);
+}
+
+/* 09. FEED
+   ------------------------------------------------------------------ */
+body .post-header .post-meta .post-author,
+body .post-author {
+  color: var(--ms-text);
+  font-weight: 700;
+}
+body .post-time,
+body .post-time a {
+  color: var(--ms-muted);
+}
+body .post-stats,
+body.night-mode .post-stats,
+body .post-actions,
+body.night-mode .post-actions,
+body .post-footer,
+body.night-mode .post-footer,
+body .publisher-footer,
+body.night-mode .publisher-footer {
+  border-color: var(--ms-border);
+}
+body .post-actions .action-btn:hover,
+body.night-mode .post-actions .action-btn:hover {
+  background: rgba(var(--ms-purple-rgb), 0.12);
+  color: var(--ms-text);
+}
+body .comment-form textarea,
+body.night-mode .comment-form textarea,
+body .publisher textarea,
+body.night-mode .publisher textarea {
+  background: transparent;
+  color: var(--ms-text);
+}
+body .comment-data,
+body.night-mode .comment-data {
+  background: var(--ms-surface-2);
+  border-radius: 4px;
+}
+body .stories-wrapper .add-story .add {
+  color: var(--ms-purple-light);
+}
+body .daytime_message {
+  border-left: 2px solid var(--ms-moon) !important;
+}
+
+/* 10. CHAT LATERAL
+   ------------------------------------------------------------------ */
+body .chat-sidebar,
+body.night-mode .chat-sidebar {
+  background: var(--ms-surface);
+  border-left: 1px solid var(--ms-border);
+  box-shadow: none;
+}
+body .chat-sidebar-header,
+body.night-mode .chat-sidebar-header,
+body .chat-sidebar-footer,
+body.night-mode .chat-sidebar-footer {
+  background: transparent;
+  border-color: var(--ms-border);
+  color: var(--ms-text);
+}
+body .chat-widget,
+body.night-mode .chat-widget {
+  border-radius: var(--ms-radius) var(--ms-radius) 0 0;
+  border: 1px solid var(--ms-border);
+}
+
+/* 11. PÁGINA DE ENTRADA (visitante)
+   ------------------------------------------------------------------ */
+body.index-body,
+body.night-mode.index-body {
+  background-image:
+    radial-gradient(circle at 82% 8%, rgba(var(--ms-purple-rgb), 0.22), transparent 34%),
+    radial-gradient(circle at 8% 78%, rgba(var(--ms-purple-rgb), 0.09), transparent 38%),
+    radial-gradient(circle at 50% 110%, rgba(212, 188, 132, 0.06), transparent 40%);
+  background-color: var(--ms-bg);
+  background-size: auto;
+}
+
+.ms-hero {
+  position: relative;
+  padding: 40px 0 30px;
+}
+.ms-hero .ms-kicker {
+  margin-bottom: 18px;
+}
+.ms-hero-title {
+  margin: 0 0 26px;
+  font-size: 44px;
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: var(--ms-text);
+}
+/* contorno feito com sombras: -webkit-text-stroke desenha as junções internas
+   da fonte variável Montserrat e deixa riscos dentro das letras */
+.ms-hero-title .ms-outline {
+  --ms-o: var(--ms-text);
+  display: block;
+  color: var(--ms-bg);
+  text-shadow:
+    -1.5px -1.5px 0 var(--ms-o), 0 -1.5px 0 var(--ms-o), 1.5px -1.5px 0 var(--ms-o),
+    -1.5px 0 0 var(--ms-o), 1.5px 0 0 var(--ms-o),
+    -1.5px 1.5px 0 var(--ms-o), 0 1.5px 0 var(--ms-o), 1.5px 1.5px 0 var(--ms-o);
+}
+@media (max-width: 575px) {
+  .ms-hero { padding-top: 20px; }
+  .ms-hero-title { font-size: 34px; letter-spacing: -1.5px; }
+  .ms-hero-point { flex-basis: 100%; }
+  .ms-hero-point + .ms-hero-point { border-left: 0; border-top: 1px solid var(--ms-border); }
+}
+@media (min-width: 768px) {
+  .ms-hero-title { font-size: 46px; letter-spacing: -2.5px; }
+}
+@media (min-width: 992px) {
+  .ms-hero-title { font-size: 56px; letter-spacing: -3px; }
+}
+@media (min-width: 1200px) {
+  .ms-hero-title { font-size: 68px; letter-spacing: -4px; }
+}
+.ms-hero-lead {
+  max-width: 460px;
+  margin: 22px 0 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ms-muted);
+}
+.ms-hero-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 34px;
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  background: var(--ms-panel);
+  max-width: 520px;
+}
+.ms-hero-point {
+  flex: 1 1 0;
+  min-width: 140px;
+  padding: 18px 20px;
+}
+.ms-hero-point + .ms-hero-point {
+  border-left: 1px solid var(--ms-border);
+}
+.ms-hero-point .ms-kicker {
+  margin: 0 0 6px;
+  color: var(--ms-muted);
+  font-size: 9px;
+}
+.ms-hero-point strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ms-text);
+}
+
+/* lua decorativa, no lugar da ilustração antiga */
+.ms-moon-art {
+  position: absolute;
+  right: -40px;
+  top: -10px;
+  width: 360px;
+  height: 360px;
+  pointer-events: none;
+  opacity: 0.9;
+}
+.ms-moon-art .ms-moon-disc {
+  position: absolute;
+  inset: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(236, 220, 174, 0.22), rgba(var(--ms-purple-rgb), 0.12) 55%, transparent 72%);
+  box-shadow: inset -28px -18px 0 0 rgba(6, 5, 9, 0.75);
+}
+.ms-moon-art .ms-moon-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--ms-border);
+  border-radius: 50%;
+}
+.ms-moon-art .ms-moon-ring.r2 { inset: 36px; border-style: dashed; opacity: 0.6; }
+@media (max-width: 991px) {
+  .ms-moon-art { display: none; }
+}
+
+/* cartão de login/cadastro */
+body .card-register,
+body.night-mode .card-register {
+  position: relative;
+  z-index: 1;
+  background: var(--ms-surface);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  overflow: visible;
+}
+body .card-register::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ms-purple-dark), var(--ms-purple-light) 45%, var(--ms-moon) 80%, transparent);
+  border-radius: var(--ms-radius) var(--ms-radius) 0 0;
+}
+body .card-register .card-header {
+  padding: 28px 20px 10px;
+}
+body .card-register .btn-block,
+body .card-register .btn-block:hover,
+body .card-register .btn-block:focus {
+  border-radius: 4px !important;
+  background: linear-gradient(135deg, var(--ms-purple), var(--ms-purple-dark)) !important;
+  border: 1px solid var(--ms-purple) !important;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 12px 20px;
+  box-shadow: 0 10px 30px rgba(var(--ms-purple-rgb), 0.25);
+}
+body .card-register .btn-block:hover {
+  box-shadow: 0 12px 34px rgba(var(--ms-purple-rgb), 0.4);
+  transform: translateY(-1px);
+}
+body .text-link {
+  color: var(--ms-accent-text);
+  font-weight: 600;
+}
+body .card-register .card-header img {
+  display: none;
+}
+body .card-register .card-header .card-title,
+body.night-mode .card-register .card-header .card-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ms-text);
+}
+body .card-register .form-control,
+body.night-mode .card-register .form-control,
+body .card-register .input-group > .input-group-prepend > .input-group-text,
+body.night-mode .card-register .input-group > .input-group-prepend > .input-group-text {
+  border-radius: 4px;
+  background: var(--ms-input);
+  border-color: var(--ms-border);
+}
+body .card-register .input-group > .input-group-prepend > .input-group-text {
+  border-right: 0;
+  border-radius: 4px 0 0 4px;
+}
+body .card-register .input-group > .form-control {
+  border-radius: 0 4px 4px 0;
+}
+
+/* 12. PERGUNTA DA NOITE
+   ------------------------------------------------------------------ */
+.ms-night-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 34px 30px 30px;
+}
+.ms-night-hero .ms-night-glyph {
+  position: absolute;
+  right: 26px;
+  top: 22px;
+  font-size: 22px;
+  color: var(--ms-ornament);
+  opacity: 0.7;
+}
+.ms-night-question {
+  margin: 14px 0 18px;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--ms-text);
+}
+@media (min-width: 768px) {
+  .ms-night-question { font-size: 30px; letter-spacing: -1px; }
+}
+.ms-night-meta {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ms-muted);
+}
+.ms-night-meta strong {
+  color: var(--ms-text);
+}
+.ms-answer {
+  padding: 16px 0;
+}
+.ms-answer + .ms-answer {
+  border-top: 1px solid var(--ms-border);
+}
+.ms-answer-text {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ms-text);
+}
+.ms-archive-item {
+  position: relative;
+  padding: 0 0 22px 22px;
+  border-left: 1px solid var(--ms-border);
+}
+.ms-archive-item:last-child { padding-bottom: 0; }
+.ms-archive-item::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ms-moon);
+  box-shadow: 0 0 10px rgba(212, 188, 132, 0.6);
+}
+
+/* 13. PERFIL
+   ------------------------------------------------------------------ */
+body .profile-header,
+body.night-mode .profile-header {
+  border: 1px solid var(--ms-border);
+  border-top: 0;
+  border-radius: 0 0 var(--ms-radius) var(--ms-radius);
+}
+body .profile-tabs-wrapper,
+body.night-mode .profile-tabs-wrapper {
+  background: var(--ms-surface);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  box-shadow: var(--ms-shadow);
+}
+body .profile-tabs-wrapper > ul > li > a,
+body.night-mode .profile-tabs-wrapper > ul > li > a {
+  color: var(--ms-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+body .profile-tabs-wrapper > ul > li > a:hover,
+body.night-mode .profile-tabs-wrapper > ul > li > a:hover {
+  color: var(--ms-text);
+}
+body .profile-tabs-wrapper > ul > li > a.active,
+body.night-mode .profile-tabs-wrapper > ul > li > a.active {
+  color: var(--ms-text);
+  border-bottom: 2px solid var(--ms-purple-light);
+}
+body .profile-tabs-wrapper > ul > li > a.active i {
+  color: var(--ms-purple-light);
+}
+body .profile-name-wrapper > a {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+body .profile-cover-wrapper,
+body.night-mode .profile-cover-wrapper {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(var(--ms-purple-rgb), 0.35), transparent 45%),
+    radial-gradient(circle at 15% 90%, rgba(212, 188, 132, 0.10), transparent 40%),
+    linear-gradient(135deg, #1a0f2e, #060509);
+  border-radius: 0 0 var(--ms-radius) var(--ms-radius);
+}
+
+/* 14. RODAPÉ E UTILIDADES
+   ------------------------------------------------------------------ */
+body .mini-footer,
+body .footer,
+body .mini-footer a {
+  color: var(--ms-muted);
+}
+body .mini-footer a:hover {
+  color: var(--ms-text);
+}
+body .verified-badge {
+  color: var(--ms-purple-light);
+}
+body .bg-gradient-primary,
+body .bg-gradient-purple {
+  background: linear-gradient(135deg, var(--ms-purple), var(--ms-purple-dark)) !important;
+}
+
+/* aviso de cookies no tom do tema */
+body .cc-window.cc-banner,
+body .cc-window.cc-floating {
+  background: #0f0c16 !important;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  font-family: var(--ms-font);
+}
+body .cc-btn {
+  background: linear-gradient(135deg, var(--ms-purple), var(--ms-purple-dark)) !important;
+  border: 0 !important;
+  color: #fff !important;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px !important;
+}
+
+/* 15. FAIXA DE TOPO DAS PÁGINAS
+   Substitui o banner azul com ilustração por um "céu" escuro com lua,
+   no mesmo estilo do título da página de entrada.
+   ------------------------------------------------------------------ */
+body .page-header,
+body.night-mode .page-header {
+  background:
+    radial-gradient(circle at 82% 0%, rgba(var(--ms-purple-rgb), 0.38), transparent 46%),
+    radial-gradient(circle at 8% 100%, rgba(212, 188, 132, 0.08), transparent 40%),
+    linear-gradient(180deg, #0e0a19, #07050d);
+  color: #fff;
+  text-align: left;
+  padding: 60px 15px 70px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+@media (min-width: 768px) {
+  body .page-header { padding: 80px 15px 90px; }
+}
+body .page-header .floating-img,
+body .page-header .circle-1 {
+  display: none !important;
+}
+body .page-header .inner {
+  position: relative;
+  max-width: 1110px;
+  margin: 0 auto;
+}
+body .page-header .inner::before,
+body .page-header > .container::before {
+  content: "\2726\00a0\00a0Moonspace";
+  display: block;
+  margin-bottom: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9d6bff;
+}
+body .page-header h2 {
+  margin: 0 0 18px;
+  font-family: var(--ms-font);
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
+  color: #fff;
+}
+body .page-header h2::after {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 1px;
+  margin-top: 20px;
+  background: linear-gradient(90deg, var(--ms-moon), transparent);
+}
+@media (min-width: 992px) {
+  body .page-header h2 { font-size: 54px; letter-spacing: -3px; }
+}
+body .page-header p,
+body .page-header .text-xlg {
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+}
+/* os círculos do tema viram anel + lua */
+body .page-header .circle-2 {
+  top: -110px;
+  right: 7%;
+  width: 360px;
+  height: 360px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  opacity: 1;
+}
+body .page-header .circle-3 {
+  top: 40px;
+  right: calc(7% + 100px);
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle at 35% 30%, rgba(236, 220, 174, 0.22), rgba(var(--ms-purple-rgb), 0.16) 55%, transparent 72%);
+  box-shadow: inset -22px -14px 0 0 rgba(7, 5, 13, 0.85);
+  opacity: 1;
+}
+@media (max-width: 767px) {
+  body .page-header .circle-2,
+  body .page-header .circle-3 { display: none; }
+}
+/* campos e botões dentro da faixa (busca de filmes etc.) */
+body .page-header .form-control {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+body .page-header .btn {
+  background: linear-gradient(135deg, var(--ms-purple), var(--ms-purple-dark));
+  border-color: var(--ms-purple);
+  color: #fff;
+}
+
+/* 16. BOTÕES E SELOS DE ESTADO
+   ------------------------------------------------------------------ */
+/* botões pequenos ficam sem caixa alta para caber nos widgets */
+body .btn-sm,
+body .btn-primary.btn-sm {
+  text-transform: none;
+  letter-spacing: 0.3px;
+  font-size: 12px;
+}
+body .btn.rounded-pill {
+  border-radius: 4px !important;
+}
+
+/* sucesso / info / perigo / aviso no estilo "contorno" */
+body .btn-success,
+body .btn-success:focus,
+body .btn-success:not(:disabled):not(.disabled):active {
+  background: rgba(79, 201, 138, 0.1);
+  border: 1px solid rgba(79, 201, 138, 0.45);
+  color: var(--ms-green-text);
+  box-shadow: none;
+}
+body .btn-success:hover {
+  background: rgba(79, 201, 138, 0.2);
+  border-color: var(--ms-green);
+  color: var(--ms-green-text);
+}
+body .btn-info,
+body .btn-info:focus,
+body .btn-info:not(:disabled):not(.disabled):active {
+  background: rgba(var(--ms-purple-rgb), 0.12);
+  border: 1px solid rgba(157, 107, 255, 0.45);
+  color: var(--ms-accent-text);
+  box-shadow: none;
+}
+body .btn-info:hover {
+  background: rgba(var(--ms-purple-rgb), 0.22);
+  border-color: var(--ms-purple-light);
+  color: var(--ms-accent-text);
+}
+body .btn-danger,
+body .btn-danger:focus,
+body .btn-danger:not(:disabled):not(.disabled):active {
+  background: rgba(239, 69, 101, 0.1);
+  border: 1px solid rgba(239, 69, 101, 0.45);
+  color: var(--ms-red-text);
+  box-shadow: none;
+}
+body .btn-danger:hover {
+  background: rgba(239, 69, 101, 0.2);
+  border-color: var(--ms-red);
+  color: var(--ms-red-text);
+}
+body .btn-warning,
+body .btn-warning:focus {
+  background: rgba(212, 188, 132, 0.12);
+  border: 1px solid rgba(212, 188, 132, 0.45);
+  color: var(--ms-ornament);
+}
+body .btn-warning:hover {
+  background: rgba(212, 188, 132, 0.22);
+  color: var(--ms-ornament);
+}
+
+body .badge-info,
+body .badge-primary,
+body .badge-secondary,
+body .badge-dark {
+  background: rgba(var(--ms-purple-rgb), 0.2);
+  color: var(--ms-accent-text);
+}
+body .badge-success {
+  background: rgba(79, 201, 138, 0.15);
+  color: var(--ms-green-text);
+}
+body .badge-danger {
+  background: var(--ms-red);
+  color: #fff;
+}
+
+/* degradês coloridos do tema (painel de saldo etc.) */
+body .bg-gradient-info,
+body .bg-gradient-blue,
+body .bg-gradient-indigo,
+body .bg-gradient-cyan,
+body .bg-gradient-teal,
+body .bg-gradient-default {
+  background:
+    radial-gradient(circle at 85% 15%, rgba(236, 220, 174, 0.18), transparent 40%),
+    linear-gradient(135deg, var(--ms-purple), var(--ms-purple-dark)) !important;
+}
+body .stat-panel {
+  border-radius: var(--ms-radius);
+  border: 1px solid var(--ms-border);
+}
+
+/* títulos de seção dentro dos cards */
+body .section-title,
+body.night-mode .section-title {
+  padding: 0 0 10px;
+  background: transparent;
+  border-bottom: 1px solid var(--ms-border);
+  border-radius: 0;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ms-muted);
+}
+body .section-title i,
+body .section-title .fa {
+  color: var(--ms-accent-text);
+}
+
+/* cabeçalhos de card sem ícone (Stories, Suggested Pages...) */
+body .card-header:not(.with-nav):not(.with-icon) {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ms-text);
+}
+body .card-header:not(.with-nav):not(.with-icon) strong,
+body .card-header:not(.with-nav):not(.with-icon) .text-muted {
+  color: var(--ms-text) !important;
+}
+body .card-header a,
+body .card-header .float-right {
+  letter-spacing: 1px;
+}
+
+/* "Recent Updates" */
+body .posts-filter,
+body.night-mode .posts-filter {
+  border-color: var(--ms-border);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ms-text);
+}
+
+/* campos com o mesmo tamanho de fonte */
+body .form-control,
+body .custom-select,
+body select.form-control {
+  font-size: 13px;
+}
+
+/* abas do perfil/grupo cabem sem cortar */
+body .profile-tabs-wrapper > ul > li > a {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* abas em formato de pílula (busca) */
+body .nav-pills .nav-link {
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+body .nav-pills.nav-search .nav-link:not(.active),
+body.night-mode .nav-pills.nav-search .nav-link:not(.active),
+body .nav-pills .nav-link:not(.active) {
+  background: var(--ms-panel);
+  border: 1px solid var(--ms-border);
+  color: var(--ms-muted);
+}
+body .nav-pills .nav-link:not(.active):hover {
+  color: var(--ms-text);
+  border-color: var(--ms-purple-light);
+}
+
+/* ícones coloridos do menu principal: monocromáticos, roxos no item ativo */
+body .main-side-nav a svg,
+body .main-side-nav a img:not(.rounded-circle) {
+  filter: grayscale(1);
+  opacity: 0.55;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+body.night-mode .main-side-nav a svg,
+body.night-mode .main-side-nav a img:not(.rounded-circle) {
+  filter: grayscale(1) brightness(1.6);
+}
+body .main-side-nav a:hover svg,
+body .main-side-nav > li.active > a svg,
+body .main-side-nav ul > li.active > a svg {
+  filter: grayscale(1) sepia(1) saturate(6) hue-rotate(218deg) brightness(1.15);
+  opacity: 1;
+}
+body .main-side-nav .fa-moon {
+  color: var(--ms-ornament);
+}
+
+/* 17. MENUS LATERAIS SECUNDÁRIOS (configurações, gêneros de filmes...)
+   ------------------------------------------------------------------ */
+body .side-nav a,
+body .side-nav .static,
+body.night-mode .side-nav a {
+  color: var(--ms-muted);
+  border-radius: 4px;
+}
+body .side-nav a:hover {
+  color: var(--ms-text);
+  background: var(--ms-panel-hover);
+}
+body .side-nav > li.active > a,
+body.night-mode .side-nav > li.active > a {
+  color: var(--ms-text);
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(var(--ms-purple-rgb), 0.22), rgba(var(--ms-purple-rgb), 0.04));
+  box-shadow: inset 2px 0 0 var(--ms-purple-light);
+  border-radius: 0 4px 4px 0;
+}
+body .side-nav ul a,
+body.night-mode .side-nav ul a {
+  color: var(--ms-muted);
+  border-left-color: var(--ms-border);
+}
+body .side-nav ul > li.active > a {
+  color: var(--ms-accent-text);
+  font-weight: 600;
+}
+/* ícones com cor fixa no HTML (settings.tpl) */
+body .side-nav a > i.fa,
+body .side-nav a > i.fas,
+body .side-nav a > i.fab {
+  color: var(--ms-accent-text) !important;
+}
+body .side-nav a[data-toggle="collapse"]:after {
+  color: var(--ms-dim);
+}
+
+/* 18. FÓRUNS, CONVERSAS, ESTADOS VAZIOS, IMAGENS PADRÃO, ALERTAS
+   ------------------------------------------------------------------ */
+body .breadcrumb,
+body.night-mode .breadcrumb {
+  background: var(--ms-panel);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+}
+body .breadcrumb-item.active {
+  color: var(--ms-muted);
+}
+body .breadcrumb-item + .breadcrumb-item::before {
+  color: var(--ms-dim);
+}
+
+body .forum-category,
+body.night-mode .forum-category {
+  background: var(--ms-surface-2);
+  border: 1px solid var(--ms-border);
+  border-left: 2px solid var(--ms-purple-light);
+  border-radius: var(--ms-radius) var(--ms-radius) 0 0;
+  color: var(--ms-text);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+body .forum-category a {
+  color: var(--ms-text);
+}
+body .forum-head > .column,
+body.night-mode .forum-head > .column,
+body .forum-head.threads > .column,
+body.night-mode .forum-head.threads > .column {
+  background: var(--ms-surface);
+  border-color: var(--ms-border);
+  color: var(--ms-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+body .forum-row > .column,
+body.night-mode .forum-row > .column {
+  background: var(--ms-panel);
+  border-color: var(--ms-border);
+  color: var(--ms-muted);
+}
+body .forum-row > .column.icon {
+  color: var(--ms-accent-text);
+}
+body .forum-thread,
+body.night-mode .forum-thread {
+  position: relative;
+  background: var(--ms-panel);
+  border: 1px solid var(--ms-border);
+  border-radius: var(--ms-radius);
+  box-shadow: var(--ms-shadow);
+}
+body .forum-thread .time,
+body.night-mode .forum-thread .time {
+  border-color: var(--ms-border);
+  color: var(--ms-muted);
+}
+
+/* bolhas do chat */
+body .conversation.right .conversation-body .text {
+  background: linear-gradient(135deg, var(--ms-purple), var(--ms-purple-dark));
+}
+body .conversation:not(.right) .conversation-body .text,
+body.night-mode .conversation:not(.right) .conversation-body .text {
+  background: var(--ms-surface-2);
+  border: 1px solid var(--ms-border);
+  color: var(--ms-text);
+}
+
+/* estado vazio */
+.ms-empty {
+  padding: 30px 10px;
+  text-align: center;
+}
+.ms-empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 14px;
+  border: 1px solid var(--ms-border);
+  border-radius: 50%;
+  font-size: 22px;
+  color: var(--ms-ornament);
+  background: radial-gradient(circle, rgba(var(--ms-purple-rgb), 0.2), transparent 70%);
+  box-shadow: 0 0 30px rgba(var(--ms-purple-rgb), 0.18);
+}
+.ms-empty-text {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ms-muted);
+}
+
+/* imagens padrão claras (grupo, página, evento, filme, jogo...) escurecidas para o tema */
+body img[src*="/images/blank_"]:not([src*="blank_profile"]):not([src*="blank_flag"]),
+body [style*="/images/blank_"]:not([style*="blank_profile"]):not([style*="blank_flag"]) {
+  filter: brightness(0.32) sepia(1) hue-rotate(218deg) saturate(1.8);
+}
+
+/* alertas no tom do tema (dia e noite) */
+body .alert-warning,
+body.night-mode .alert-warning {
+  background: rgba(212, 188, 132, 0.1);
+  border: 1px solid rgba(212, 188, 132, 0.4);
+  color: var(--ms-text);
+}
+body .alert-warning .fa,
+body .alert-warning i {
+  color: var(--ms-ornament);
+}
+body .alert-info,
+body .alert-primary {
+  background: rgba(var(--ms-purple-rgb), 0.1);
+  border: 1px solid rgba(157, 107, 255, 0.35);
+  color: var(--ms-text);
+}
+body .alert-danger {
+  background: rgba(239, 69, 101, 0.1);
+  border-color: rgba(239, 69, 101, 0.35);
+  color: var(--ms-red-text);
+}
+body .alert-success {
+  background: rgba(79, 201, 138, 0.1);
+  border-color: rgba(79, 201, 138, 0.35);
+  color: var(--ms-green-text);
+}
+body .forum-meta-head,
+body.night-mode .forum-meta-head {
+  background: var(--ms-surface);
+  border: 1px solid var(--ms-border);
+  border-bottom: 0;
+  color: var(--ms-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+body .forum-meta-conent,
+body.night-mode .forum-meta-conent {
+  background: var(--ms-panel);
+  border: 1px solid var(--ms-border);
+  color: var(--ms-muted);
+}
+/* busca dentro da faixa alinhada à esquerda, como o título */
+body .page-header > .container {
+  position: relative;
+  z-index: 1;
+}
+body .page-header .row .mx-sm-auto {
+  margin-left: 0 !important;
+}
+
+/* nomes nos widgets laterais não quebram no meio da palavra */
+body .data-container .data-content .name,
+body .data-container .data-content .name a {
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+body .data-container .btn-sm {
+  padding: 4px 10px;
+  font-size: 11px;
+}
+
+/* caixa de mensagem do chat */
+body .chat-form,
+body.night-mode .chat-form {
+  background: var(--ms-surface);
+}
+body .chat-form-message,
+body.night-mode .chat-form-message {
+  border-top-color: var(--ms-border);
+}
+body .x-form-tools > li:hover,
+body.night-mode .x-form-tools > li:hover {
+  background: rgba(var(--ms-purple-rgb), 0.18);
+}

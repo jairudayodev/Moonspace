@@ -77,12 +77,11 @@
 
                             <!-- logo -->
                             <a href="{$system['system_url']}" class="logo {if !$user->_logged_in && $system['newsfeed_public']}with-menu-icon{/if}">
-                                {if $system['system_logo']}
-                                    <!--<img class="img-fluid" src="{$system['system_uploads']}/{$system['system_logo']}" alt="{$system['system_title']}" title="{$system['system_title']}">-->
-									<p style="color: #41009a;text-transform: none;font-size: 1.4em;">Moonspace</p>
-                                {else}
-                                    <p style="color: #41009a;text-transform: none;font-size: 1.4em;">Moonspace</p>
-                                {/if}
+                                <span class="ms-brand-mark"><i class="fas fa-moon"></i></span>
+                                <span class="ms-brand-text">
+                                    <span class="ms-brand-name">Moonspace</span>
+                                    <span class="ms-brand-sub">Rede social noturna</span>
+                                </span>
                             </a>
                             <!-- logo -->
 

@@ -36,24 +36,28 @@
 
                 <!-- question -->
                 <div class="card">
-                    <div class="card-body text-center ptb30">
-                        <div class="text-muted small text-uppercase mb10">
-                            <i class="fas fa-moon mr5"></i>Pergunta da Noite &middot; {$night_label}
+                    <div class="card-body ms-night-hero">
+                        <i class="fas fa-moon ms-night-glyph" aria-hidden="true"></i>
+                        <div class="ms-kicker">
+                            Pergunta da Noite<span class="ms-kicker-sep">//</span>{$night_label}
                         </div>
                         {if $question}
-                            <div class="h4 mb10">{$question['question']}</div>
-                            <div class="text-muted small">
-                                {if $answers_count == 0}
-                                    Ninguém respondeu ainda. Seja a primeira pessoa!
-                                {elseif $answers_count == 1}
-                                    1 pessoa já respondeu
-                                {else}
-                                    {$answers_count} pessoas já responderam
-                                {/if}
-                                &middot; nova pergunta todo dia às {$night_start_hour}h (horário de Brasília)
+                            <div class="ms-night-question">{$question['question']}</div>
+                            <div class="ms-divider left"><i class="fas fa-star"></i></div>
+                            <div class="ms-night-meta">
+                                <span>
+                                    {if $answers_count == 0}
+                                        Ninguém respondeu ainda. Seja a primeira pessoa!
+                                    {elseif $answers_count == 1}
+                                        <strong>1</strong> pessoa já respondeu
+                                    {else}
+                                        <strong>{$answers_count}</strong> pessoas já responderam
+                                    {/if}
+                                </span>
+                                <span>Nova pergunta todo dia às {$night_start_hour}h (horário de Brasília)</span>
                             </div>
                         {else}
-                            <div class="h5 mb0">Ainda não há perguntas cadastradas.</div>
+                            <div class="ms-night-question mb0">Ainda não há perguntas cadastradas.</div>
                         {/if}
                     </div>
                 </div>
@@ -93,7 +97,7 @@
                             <div class="card-body">
                                 {if $answers}
                                     {foreach $answers as $_answer}
-                                        <div class="d-flex {if !$_answer@last}mb20 pb20 border-bottom{/if}">
+                                        <div class="d-flex ms-answer">
                                             <a href="{$system['system_url']}/{$_answer['user_name']}" class="flex-shrink-0 mr10">
                                                 <img class="rounded-circle" src="{$_answer['user_picture']}" alt="" width="42" height="42">
                                             </a>
@@ -117,7 +121,7 @@
                                                         </form>
                                                     {/if}
                                                 </div>
-                                                <div class="mt5">{$_answer['answer']|nl2br}</div>
+                                                <div class="ms-answer-text">{$_answer['answer']|nl2br}</div>
                                             </div>
                                         </div>
                                     {/foreach}
@@ -140,8 +144,8 @@
                     <div class="card-body">
                         {if $nights}
                             {foreach $nights as $_night}
-                                <div class="{if !$_night@last}mb20 pb20 border-bottom{/if}">
-                                    <div class="text-muted small mb5"><i class="fas fa-moon mr5"></i>{$_night['night_label']}</div>
+                                <div class="ms-archive-item">
+                                    <div class="ms-kicker mb5">{$_night['night_label']}</div>
                                     <div class="font-weight-bold mb5">{if $_night['question']}{$_night['question']}{else}(pergunta removida){/if}</div>
                                     <div>{$_night['answer']|nl2br}</div>
                                 </div>

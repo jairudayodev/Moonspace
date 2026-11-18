@@ -10,6 +10,9 @@
 // fetch bootloader
 require('bootloader.php');
 
+// optional route params (avoid PHP 8 undefined key warnings)
+$_GET['view'] = isset($_GET['view']) ? $_GET['view'] : '';
+
 // pages enabled
 if (!$system['pages_enabled']) {
 	_error(404);

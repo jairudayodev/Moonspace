@@ -41,7 +41,8 @@ try {
 		user_access();
 
 		// get view content
-		switch ($_GET['view']) {
+		$view = isset($_GET['view']) ? $_GET['view'] : '';
+		switch ($view) {
 			case '':
 				// page header
 				page_header($system['system_title']);
@@ -225,7 +226,7 @@ try {
 				break;
 		}
 		/* assign variables */
-		$smarty->assign('view', $_GET['view']);
+		$smarty->assign('view', $view);
 
 		// get pro members & pages
 		if ($system['packages_enabled']) {
