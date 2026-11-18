@@ -32,7 +32,8 @@ require_once(ABSPATH . 'includes/config.php');
 // enviroment settings
 if (DEBUGGING) {
     ini_set("display_errors", true);
-    error_reporting(E_ALL ^ E_NOTICE);
+    /* hide notices and deprecations (Smarty 3.1 floods PHP 8.2+ with them) */
+    error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 } else {
     ini_set("display_errors", false);
     error_reporting(0);
@@ -248,6 +249,10 @@ $smarty = new Smarty;
 $smarty->template_dir = ABSPATH . 'content/themes/' . $system['theme'] . '/templates';
 $smarty->compile_dir = ABSPATH . 'content/themes/' . $system['theme'] . '/templates_compiled';
 $smarty->loadFilter('output', 'trimwhitespace');
+if (DEBUGGING) {
+    /* templates read optional vars freely: PHP 8 turned those notices into warnings, mute them only while rendering */
+    $smarty->error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_USER_DEPRECATED;
+}
 
 
 // get user
