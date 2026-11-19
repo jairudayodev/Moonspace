@@ -2,7 +2,7 @@
 
 Rede social simples e noturna, feita para conversar. O Moonspace reúne o essencial de uma rede social (perfis, feed, mensagens, grupos, fóruns, filmes e jogos) e tem um ritual próprio, a **Pergunta da Noite**, que dá motivo para voltar todo dia.
 
-- **Site:** https://moonspace.rf.gd
+- **Site:** https://moonspace.eventeen.com.br
 - **Autor:** Jair Roger
 - **Versão do núcleo:** 3.4 (`SYS_VER` em `bootstrap.php`)
 
