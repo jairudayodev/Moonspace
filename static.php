@@ -31,8 +31,12 @@ try {
 	_error(__("Error"), $e->getMessage());
 }
 
-// page header
-page_header($system['system_title'] . ' - ' . $static['page_title']);
+// page header (título específico primeiro e descrição tirada do próprio texto da página)
+$static_description = trim(preg_replace('/\s+/u', ' ', strip_tags(html_entity_decode($static['page_text'], ENT_QUOTES, 'UTF-8'))));
+if (mb_strlen($static_description) > 160) {
+	$static_description = rtrim(mb_substr($static_description, 0, 157)) . '...';
+}
+page_header(__($static['page_title']) . ' | ' . $system['system_title'], $static_description);
 
 // page footer
 page_footer("static");

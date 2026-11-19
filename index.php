@@ -16,7 +16,10 @@ try {
 	if (!$user->_logged_in) {
 
 		// page header
-		page_header(__("Welcome to") . ' ' . $system['system_title']);
+		page_header(
+			$system['system_title'] . ': a rede social para conversar à noite',
+			$system['system_title'] . ' é uma rede social simples e noturna, feita para conversar. Responda a Pergunta da Noite, faça amigos e participe de grupos e fóruns. Crie sua conta grátis.'
+		);
 
 		if (!$system['newsfeed_public']) {
 

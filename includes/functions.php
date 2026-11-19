@@ -1982,21 +1982,80 @@ function page_header($title, $description = '', $image = '')
             $image = $system['system_url'] . '/content/themes/' . $system['theme'] . '/images/og-image.jpg';
         }
     }
+    /* SEO: descrição em uma linha só, sem HTML (biografias e trechos de posts podem trazer quebras e tags) */
+    $description = trim(preg_replace('/\s+/u', ' ', strip_tags(html_entity_decode($description, ENT_QUOTES, 'UTF-8'))));
+    $smarty->assign('page_description_json', json_encode($description, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG));
+    $description = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
     $smarty->assign('page_title', $title);
     $smarty->assign('page_description', $description);
     $smarty->assign('page_image', $image);
+    $smarty->assign('page_canonical', seo_canonical_url());
+    $smarty->assign('page_locale', seo_locale());
+}
+
+
+/**
+ * seo_canonical_url
+ *
+ * Endereço "oficial" da página: domínio do SYS_URL + caminho pedido, sem query string.
+ * Assim ?lang=..., ?i=1 (desafio da hospedagem) e outros parâmetros não viram páginas duplicadas no Google.
+ *
+ * @return string
+ */
+function seo_canonical_url()
+{
+    global $system;
+    $base = parse_url($system['system_url']);
+    $origin = (isset($base['scheme']) ? $base['scheme'] : 'https') . '://' . (isset($base['host']) ? $base['host'] : '') . (isset($base['port']) ? ':' . $base['port'] : '');
+    $path = isset($_SERVER['REQUEST_URI']) ? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '/';
+    if (!$path) {
+        $path = '/';
+    }
+    /* a home e o index.php são a mesma página */
+    $path = preg_replace('#/index\.php$#', '/', $path);
+    /* barra no final não muda a página (as rotas do .htaccess aceitam as duas formas) */
+    if ($path != '/') {
+        $path = rtrim($path, '/');
+    }
+    return htmlspecialchars($origin . $path, ENT_QUOTES, 'UTF-8');
+}
+
+
+/**
+ * seo_locale
+ *
+ * Converte o código do idioma do sistema (ex.: pt_br) para os formatos usados por HTML e Open Graph.
+ *
+ * @return array ['html' => 'pt-BR', 'og' => 'pt_BR']
+ */
+function seo_locale()
+{
+    global $system;
+    $code = isset($system['language']['code']) ? $system['language']['code'] : 'pt_br';
+    $parts = explode('_', $code);
+    $lang = strtolower($parts[0]);
+    $region = isset($parts[1]) ? strtoupper($parts[1]) : '';
+    return array(
+        'html' => $region ? $lang . '-' . $region : $lang,
+        'og' => $region ? $lang . '_' . $region : $lang
+    );
 }
 
 
 /**
  * page_footer
- * 
+ *
  * @param string $page
  * @return void
  */
 function page_footer($page)
 {
     global $smarty;
+    /* SEO: páginas privadas, de conta ou de formulário não devem aparecer no Google */
+    $noindex_pages = array('sign', 'reset', 'activation', 'started', 'admin', 'settings', 'messages', 'notifications', 'wallet', 'packages', 'search', 'share', 'night', 'people', 'banned', 'permission', 'app_oauth', '404');
+    if (in_array($page, $noindex_pages)) {
+        $smarty->assign('page_noindex', true);
+    }
     $smarty->assign('page', $page);
     $smarty->display("$page.tpl");
 }

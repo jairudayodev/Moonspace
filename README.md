@@ -18,8 +18,9 @@ Rede social simples e noturna, feita para conversar. O Moonspace reúne o essenc
 6. [Configuração no painel admin](#configuração-no-painel-admin)
 7. [Como o código funciona](#como-o-código-funciona)
 8. [O que foi removido na limpeza](#o-que-foi-removido-na-limpeza)
-9. [Segurança](#segurança)
-10. [Ideias para o futuro](#ideias-para-o-futuro)
+9. [SEO](#seo)
+10. [Segurança](#segurança)
+11. [Ideias para o futuro](#ideias-para-o-futuro)
 
 ---
 
@@ -252,6 +253,30 @@ Para deixar o projeto mais leve (de 92 MB para cerca de 70 MB), foram retirados 
 | Arquivos `.mo` de tradução | Desatualizados; o site lê os `.po` |
 
 Os pontos do código que ainda chamavam Twilio, Agora e PayPal (`includes/functions.php` e `includes/class-user.php`) foram protegidos: mostram *"This feature is not available"* em vez de travar o site.
+
+---
+
+## SEO
+
+O que o código já faz para o site ser encontrado nos buscadores:
+
+| Item | Onde |
+|---|---|
+| Título e descrição da home em português, com as palavras "rede social" e "Pergunta da Noite" | `index.php` |
+| `lang="pt-BR"` correto, `<link rel="canonical">` sem parâmetros (`?lang=`, `?i=1`), `og:url`, `og:locale`, `og:type` | `_head.tpl` + `seo_canonical_url()` / `seo_locale()` em `includes/functions.php` |
+| Descrições sem HTML e sem quebras de linha | `page_header()` em `includes/functions.php` |
+| `noindex` em login, cadastro, configurações, mensagens, busca, Pergunta da Noite e outras páginas privadas | lista `$noindex_pages` em `page_footer()` |
+| Dados estruturados (Organization + WebSite) na home do visitante | `_head.tpl` |
+| Páginas estáticas com título específico primeiro e descrição tirada do próprio texto | `static.php` |
+| `/sitemap.xml` gerado do banco (home, páginas estáticas, contato e, se o site for público, grupos públicos e páginas). Perfis ficam de fora por privacidade | `sitemap.php` + regra no `.htaccess` |
+| `robots.txt` com as áreas privadas bloqueadas e o endereço do sitemap | `robots.txt` |
+
+O que depende de você, fora do código:
+
+1. **Google Search Console** (https://search.google.com/search-console): adicione `moonspace.eventeen.com.br`, envie `https://moonspace.eventeen.com.br/sitemap.xml` e use **Inspecionar URL** na home para pedir a indexação. Faça o mesmo no **Bing Webmaster Tools**.
+2. **Admin › Settings**: troque a descrição do site (usada como padrão nas outras páginas) por algo mais completo, por exemplo: *"Moonspace é uma rede social noturna para conversar: Pergunta da Noite todo dia às 20h, grupos, fóruns e mensagens."*
+3. **Hospedagem:** o InfinityFree mostra um desafio em JavaScript (`aes.js`) antes da página. Confira no Search Console (Inspecionar URL › Testar URL publicada) se o Google enxerga a página de verdade. Se ele só vir o desafio, o site não será indexado até mudar de hospedagem.
+4. **Links externos:** divulgar o endereço no Instagram, em perfis e no site do Eventeen ajuda o Google a descobrir e confiar no site.
 
 ---
 

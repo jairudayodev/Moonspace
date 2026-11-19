@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="{$system['language']['code']}" {if $system['language']['dir'] == "RTL"} dir="RTL" {/if}>
+<html lang="{if $page_locale}{$page_locale['html']}{else}{$system['language']['code']|replace:'_':'-'}{/if}" {if $system['language']['dir'] == "RTL"} dir="RTL" {/if}>
 
 <head>
 
@@ -16,13 +16,30 @@
     <!-- Meta -->
     <meta name="description" content="{$page_description|truncate:300}">
     <meta name="keywords" content="{$system['system_keywords']}">
+    {if $page_noindex}
+        <meta name="robots" content="noindex, follow">
+    {else}
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+        {if $page_canonical}
+            <link rel="canonical" href="{$page_canonical}">
+        {/if}
+    {/if}
+    <meta name="theme-color" content="#08060d">
     <!-- Meta -->
 
     <!-- OG-Meta -->
+    <meta property="og:type" content="{if $og_type}{$og_type}{else}website{/if}"/>
     <meta property="og:title" content="{$page_title|truncate:70}"/>
     <meta property="og:description" content="{$page_description|truncate:300}"/>
     <meta property="og:site_name" content="{$system['system_title']}"/>
+    {if $page_canonical}
+        <meta property="og:url" content="{$page_canonical}"/>
+    {/if}
+    {if $page_locale}
+        <meta property="og:locale" content="{$page_locale['og']}"/>
+    {/if}
     <meta property="og:image" content="{$page_image}"/>
+    <meta property="og:image:alt" content="{$page_title|truncate:70}"/>
     <!-- OG-Meta -->
 
     <!-- Twitter-Meta -->
@@ -32,9 +49,38 @@
     <meta name="twitter:image" content="{$page_image}"/>
     <!-- Twitter-Meta -->
 
+    <!-- Structured data (home do visitante) -->
+    {if $page == "index" && !$user->_logged_in}
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Organization",
+                    "@id": "{$system['system_url']}/#organization",
+                    "name": "{$system['system_title']}",
+                    "url": "{$system['system_url']}/",
+                    "logo": "{$system['system_url']}/content/themes/{$system['theme']}/images/favicon.png"
+                },
+                {
+                    "@type": "WebSite",
+                    "@id": "{$system['system_url']}/#website",
+                    "name": "{$system['system_title']}",
+                    "url": "{$system['system_url']}/",
+                    "description": {$page_description_json},
+                    "inLanguage": "{if $page_locale}{$page_locale['html']}{else}pt-BR{/if}",
+                    "publisher": { "@id": "{$system['system_url']}/#organization" }
+                }
+            ]
+        }
+        </script>
+    {/if}
+    <!-- Structured data -->
+
     <!-- Favicon -->
     {if $system['system_favicon_default']}
         <link rel="shortcut icon" href="{$system['system_url']}/content/themes/{$system['theme']}/images/favicon.png" />
+        <link rel="apple-touch-icon" href="{$system['system_url']}/content/themes/{$system['theme']}/images/favicon.png" />
     {elseif $system['system_favicon']}
         <link rel="shortcut icon" href="{$system['system_uploads']}/{$system['system_favicon']}" />
     {/if}

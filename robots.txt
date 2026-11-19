@@ -1,7 +1,20 @@
 User-agent: *
+Allow: /
 Disallow: /content/backups
 Disallow: /content/languages
 Disallow: /includes/libs
+Disallow: /includes/ajax
+Disallow: /sql
 Disallow: /install
 Disallow: /admincp
 Disallow: /modcp
+Disallow: /settings
+Disallow: /messages
+Disallow: /notifications
+Disallow: /wallet
+Disallow: /reset
+Disallow: /activation
+Disallow: /started
+Disallow: /share
+
+Sitemap: https://moonspace.eventeen.com.br/sitemap.xml
