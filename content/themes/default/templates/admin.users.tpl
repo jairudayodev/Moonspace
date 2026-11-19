@@ -109,7 +109,7 @@
                                             {$row['user_name']}
                                         </a>
                                     </td>
-                                    <td>{$row['user_registered']|date_format:"%e %B %Y"}</td>
+                                    <td>{$row['user_registered']|date_br:'long':true}</td>
                                     <td>
                                         {if $row['user_activated']}
                                             <span class="badge badge-pill badge-lg badge-success">{__("Yes")}</span>
@@ -154,11 +154,11 @@
                             {__("User ID")}
                         </li>
                         <li class="list-group-item">
-                            <span class="float-right badge badge-lg badge-pill badge-secondary">{$data['user_registered']|date_format:"%e %B %Y"}</span>
+                            <span class="float-right badge badge-lg badge-pill badge-secondary">{$data['user_registered']|date_br:'long':true}</span>
                             {__("Joined")}
                         </li>
                         <li class="list-group-item">
-                            <span class="float-right badge badge-lg badge-pill badge-secondary">{$data['user_last_seen']|date_format:"%e %B %Y"}</span>
+                            <span class="float-right badge badge-lg badge-pill badge-secondary">{$data['user_last_seen']|date_br:'long':true}</span>
                             {__("Last Login")}
                         </li>
                     </ul>
@@ -1189,7 +1189,7 @@
                                     </label>
                                     <div class="col-md-9">
                                         <p class="form-control-plaintext">
-                                            {$data['user_subscription_date']|date_format:"%e %B %Y"}
+                                            {$data['user_subscription_date']|date_br:'long':true}
                                         </p>
                                     </div>
                                 </div>
@@ -1203,7 +1203,7 @@
                                             {if $data['period'] == "life"}
                                                 {__("Life Time")}
                                             {else}
-                                                {$data['subscription_end']|date_format:"%e %B %Y"} ({if $data['subscription_timeleft'] > 0}{__("Remaining")} {$data['subscription_timeleft']} {__("Days")}{else}{__("Expired")}{/if})
+                                                {$data['subscription_end']|date_br:'long':true} ({if $data['subscription_timeleft'] > 0}{__("Remaining")} {$data['subscription_timeleft']} {__("Days")}{else}{__("Expired")}{/if})
                                             {/if}
                                         </p>
                                     </div>

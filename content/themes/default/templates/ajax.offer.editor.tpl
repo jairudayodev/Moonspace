@@ -2,7 +2,7 @@
     <h6 class="modal-title">
         <i class="fas fa-tag mr5"></i>{__("Edit Offer")}
     </h6>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>

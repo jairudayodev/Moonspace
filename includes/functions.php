@@ -470,6 +470,88 @@ function get_datetime($date)
 }
 
 
+/**
+ * format_date_br
+ *
+ * Formata datas no padrão brasileiro, sem depender de setlocale/strftime (o servidor pode não ter o locale pt_BR).
+ * Também é o modificador Smarty "date_br".
+ *
+ * Formatos:
+ *  long        -> 5 de novembro de 2026
+ *  short       -> 05/11/2026
+ *  datetime    -> 05/11/2026 às 14:30
+ *  time        -> 14:30
+ *  day         -> 5
+ *  month       -> novembro
+ *  month_short -> nov.
+ *  event       -> 5 de nov. às 14:30
+ *
+ * @param string|int $date      data em texto (Y-m-d, Y-m-d H:i:s...) ou timestamp
+ * @param string $format
+ * @param boolean $from_utc     true para datas gravadas pelo sistema em UTC (cadastro, último acesso...):
+ *                              converte para o fuso de Brasília. Datas digitadas pela pessoa (eventos,
+ *                              aniversário, validade de oferta) já estão no horário local: use false.
+ * @return string
+ */
+function format_date_br($date, $format = 'long', $from_utc = false)
+{
+    if ($date === null || $date === '' || $date === '0000-00-00' || $date === '0000-00-00 00:00:00') {
+        return '';
+    }
+    try {
+        if (is_numeric($date)) {
+            $dt = new DateTime('@' . $date);
+            $from_utc = true;
+        } else {
+            $dt = new DateTime($date, new DateTimeZone('UTC'));
+        }
+    } catch (Exception $e) {
+        return $date;
+    }
+    $dt->setTimezone(new DateTimeZone($from_utc ? SYS_TIMEZONE : 'UTC'));
+    $months = array(1 => 'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro');
+    $months_short = array(1 => 'jan.', 'fev.', 'mar.', 'abr.', 'maio', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.');
+    $day = (int) $dt->format('j');
+    $month = (int) $dt->format('n');
+    switch ($format) {
+        case 'short':
+            return $dt->format('d/m/Y');
+        case 'datetime':
+            return $dt->format('d/m/Y') . ' às ' . $dt->format('H:i');
+        case 'time':
+            return $dt->format('H:i');
+        case 'day':
+            return (string) $day;
+        case 'month':
+            return $months[$month];
+        case 'month_short':
+            return $months_short[$month];
+        case 'event':
+            return $day . ' de ' . $months_short[$month] . ' às ' . $dt->format('H:i');
+        case 'long':
+        default:
+            return $day . ' de ' . $months[$month] . ' de ' . $dt->format('Y');
+    }
+}
+
+
+
+/**
+ * format_number_br
+ *
+ * number_format no padrão brasileiro (ponto no milhar, vírgula no decimal).
+ * Também é o modificador Smarty "number_format".
+ *
+ * @param float|int|string $number
+ * @param integer $decimals
+ * @return string
+ */
+function format_number_br($number, $decimals = 0)
+{
+    return number_format((float) $number, (int) $decimals, ',', '.');
+}
+
+
 
 /* ------------------------------- */
 /* JSON */
@@ -535,15 +617,15 @@ function _error()
     } else {
         switch ($args[0]) {
             case 'DB_ERROR':
-                $title = "Database Error";
-                $message = "<div class='text-left'><h1>" . "Error establishing a database connection" . "</h1>
-                            <p>" . "This either means that the username and password information in your config.php file is incorrect or we can't contact the database server at localhost. This could mean your host's database server is down." . "</p>
+                $title = "Erro no banco de dados";
+                $message = "<div class='text-left'><h1>" . "Não foi possível conectar ao banco de dados" . "</h1>
+                            <p>" . "Isso pode significar que o usuário ou a senha do banco no arquivo config.php estão incorretos, ou que o servidor do banco de dados está fora do ar." . "</p>
                             <ul>
-                                <li>" . "Are you sure you have the correct username and password?" . "</li>
-                                <li>" . "Are you sure that you have typed the correct hostname?" . "</li>
-                                <li>" . "Are you sure that the database server is running?" . "</li>
+                                <li>" . "Confira se o usuário e a senha estão corretos." . "</li>
+                                <li>" . "Confira se o endereço do servidor (host) está correto." . "</li>
+                                <li>" . "Confira se o servidor de banco de dados está funcionando." . "</li>
                             </ul>
-                            <p>" . "If you're unsure what these terms mean you should probably contact your host. If you still need help, please contact the Moonspace support.</p>
+                            <p>" . "Se tiver dúvidas sobre esses termos, fale com a sua hospedagem. Se ainda precisar de ajuda, entre em contato com o suporte do Moonspace.</p>
                             </div>";
                 break;
 
@@ -554,7 +636,7 @@ function _error()
                     $backtrace = debug_backtrace();
                     $line = $backtrace[0]['line'];
                     $file = $backtrace[0]['file'];
-                    $message .= "<br><br><small>This error function was called from line $line in file $file</small>";
+                    $message .= "<br><br><small>Erro gerado na linha $line do arquivo $file</small>";
                 }
                 break;
 
@@ -564,7 +646,7 @@ function _error()
                     $backtrace = debug_backtrace();
                     $line = $backtrace[0]['line'];
                     $file = $backtrace[0]['file'];
-                    $message .= "<br><br><small>This error function was called from line $line in file $file</small>";
+                    $message .= "<br><br><small>Erro gerado na linha $line do arquivo $file</small>";
                 }
                 throw new Exception($message);
                 break;
@@ -614,7 +696,7 @@ function _error()
                     $backtrace = debug_backtrace();
                     $line = $backtrace[0]['line'];
                     $file = $backtrace[0]['file'];
-                    $message .= "<br><br><small>This error function was called from line $line in file $file</small>";
+                    $message .= "<br><br><small>Erro gerado na linha $line do arquivo $file</small>";
                 }
                 if (isset($smarty)) {
                     $smarty->assign('message', $message);
@@ -630,7 +712,7 @@ function _error()
                     $backtrace = debug_backtrace();
                     $line = $backtrace[0]['line'];
                     $file = $backtrace[0]['file'];
-                    exit("This error function was called from line $line in file $file");
+                    exit("Erro gerado na linha $line do arquivo $file");
                 }
                 exit;
                 break;
@@ -641,7 +723,7 @@ function _error()
                     $backtrace = debug_backtrace();
                     $line = $backtrace[0]['line'];
                     $file = $backtrace[0]['file'];
-                    exit("This error function was called from line $line in file $file");
+                    exit("Erro gerado na linha $line do arquivo $file");
                 }
                 exit;
                 break;
@@ -653,7 +735,7 @@ function _error()
                     $backtrace = debug_backtrace();
                     $line = $backtrace[0]['line'];
                     $file = $backtrace[0]['file'];
-                    $message .= "<br><br>" . "<small>This error function was called from line $line in file $file</small>";
+                    $message .= "<br><br>" . "<small>Erro gerado na linha $line do arquivo $file</small>";
                 }
                 break;
         }
@@ -2031,8 +2113,8 @@ function seo_canonical_url()
 function seo_locale()
 {
     global $system;
-    $code = isset($system['language']['code']) ? $system['language']['code'] : 'pt_br';
-    $parts = explode('_', $code);
+    $code = isset($system['language']['code']) ? $system['language']['code'] : SYS_LOCALE;
+    $parts = preg_split('/[-_]/', $code);
     $lang = strtolower($parts[0]);
     $region = isset($parts[1]) ? strtoupper($parts[1]) : '';
     return array(
@@ -2647,9 +2729,11 @@ function get_array_key($array, $current, $offset = 1)
 function print_money($amount)
 {
     global $system;
-    if ($system['system_currency_dir'] == "right") {
-        return $amount . $system['system_currency_symbol'];
-    } else {
-        return $system['system_currency_symbol'] . $amount;
+    /* aceita número puro (1234.5) ou texto já formatado pelo number_format padrão (1,234.50) */
+    if (!is_numeric($amount)) {
+        $amount = str_replace(',', '', (string) $amount);
     }
+    /* padrão brasileiro: R$ 1.234,50 */
+    $amount = number_format((float) $amount, 2, ',', '.');
+    return $system['system_currency_symbol'] . ' ' . $amount;
 }

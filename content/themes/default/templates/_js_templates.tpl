@@ -26,7 +26,7 @@
 <script id="modal-message" type="text/template">
     <div class="modal-header">
         <h6 class="modal-title">{literal}{{title}}{/literal}</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -86,7 +86,7 @@
 <script id="theme-switcher" type="text/template">
     <div class="modal-header">
         <h6 class="modal-title"><i class="fas fa-paint-roller mr5"></i>{__("Theme Switcher")}</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -211,7 +211,7 @@
     <script id="forget-password-confirm" type="text/template">
         <div class="modal-header">
             <h6 class="modal-title">{__("Check Your Email")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -246,7 +246,7 @@
     <script id="forget-password-reset" type="text/template">
         <div class="modal-header">
             <h6 class="modal-title">{__("Change Your Password!")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -278,7 +278,7 @@
     <script id="two-factor-authentication" type="text/template">
         <div class="modal-header">
             <h6 class="modal-title">{__("Two-factor authentication required")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -312,7 +312,7 @@
     <script id="activation-email-reset" type="text/template">
         <div class="modal-header">
             <h6 class="modal-title">{__("Change Email Address")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -344,7 +344,7 @@
     <script id="activation-phone" type="text/template">
         <div class="modal-header">
             <h6 class="modal-title">{__("Enter the code from the SMS message")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -385,7 +385,7 @@
     <script id="activation-phone-reset" type="text/template">
         <div class="modal-header">
             <h6 class="modal-title">{__("Change Phone Number")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -465,7 +465,7 @@
     <script id="keyboard-shortcuts" type="text/template">
         <div class="modal-header">
             <h6 class="modal-title"><i class="fa fa-keyboard mr5"></i>{__("Keyboard Shortcuts")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -1007,7 +1007,7 @@
         <script id="gifts" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fa fa-gift mr5"></i>{__("Gifts")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1041,7 +1041,7 @@
                     <i class="fa fa-gift mr5"></i>
                     {if $system['show_usernames_enabled']}{$gift['user_name']}{else}{$gift['user_firstname']} {$gift['user_lastname']}{/if} {__("sent you a gift")}
                 </h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1220,7 +1220,7 @@
         <script id="wallet-transfer" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fa fa-gift mr5"></i>{__("Send Money")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1254,7 +1254,7 @@
         <script id="wallet-replenish" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fab fa-paypal mr5"></i>{__("Replenish Credit")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1281,7 +1281,7 @@
         <script id="wallet-withdraw-affiliates" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fa fa-exchange-alt mr5"></i>{__("Withdraw Affiliates Credit")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1290,7 +1290,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="amount">{__("Your Affiliates Credit")}</label>
                         <div>
-                            <span class="badge badge-success text-lg">{print_money($user->_data['user_affiliate_balance']|number_format:2)}</span>
+                            <span class="badge badge-success text-lg">{print_money($user->_data['user_affiliate_balance'])}</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -1314,7 +1314,7 @@
         <script id="wallet-withdraw-points" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fa fa-piggy-bank mr5"></i>{__("Withdraw Points Credit")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1323,7 +1323,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="amount">{__("Your Points Credit")}</label>
                         <div>
-                            <span class="badge badge-success text-lg">{print_money((((1/$system['points_per_currency'])*$user->_data['user_points'])|number_format:2))}</span>
+                            <span class="badge badge-success text-lg">{print_money(((1/$system['points_per_currency'])*$user->_data['user_points']))}</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -1347,7 +1347,7 @@
         <script id="wallet-withdraw-funding" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fa fa-hand-holding-usd mr5"></i>{__("Withdraw Funding Credit")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1356,7 +1356,7 @@
                     <div class="form-group">
                         <label class="form-control-label" for="amount">{__("Your Funding Credit")}</label>
                         <div>
-                            <span class="badge badge-success text-lg">{print_money($user->_data['user_funding_balance']|number_format:2)}</span>
+                            <span class="badge badge-success text-lg">{print_money($user->_data['user_funding_balance'])}</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -1385,7 +1385,7 @@
         <script id="crop-profile-picture" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fa fa-crop-alt mr5"></i>{__("Crop Picture")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1406,7 +1406,7 @@
         <script id="download-information" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fa fa-cloud-download-alt mr5"></i>{__("Download Your Information")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1429,7 +1429,7 @@
         <script id="verification-documents" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fa fa-paperclip mr5"></i>{__("Verification Documents")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1486,7 +1486,7 @@
         <script id="funding-donate" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fas fa-hand-holding-usd mr5"></i>{__("Donate")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1518,7 +1518,7 @@
         <script id="payment" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title">{__("Select Your Payment Method")}</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -1613,7 +1613,7 @@
             <script id="twocheckout" type="text/template">
                 <div class="modal-header">
                     <h6 class="modal-title">{include file='__svg_icons.tpl' icon="2co" width="20px" height="20px" class="mr5"}{__("2Checkout")}</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -1717,7 +1717,7 @@
             <script id="bank-transfer" type="text/template">
                 <div class="modal-header">
                     <h6 class="modal-title"><i class="fa fa-university mr5"></i>{__("Bank Transfer")}</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>

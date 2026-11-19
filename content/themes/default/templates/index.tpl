@@ -440,21 +440,6 @@
                         <div class="mini-footer mtb20 plr10">
                             <div class="copyrights dropdown">
                                 <span class="mr5">&copy; {'Y'|date} {$system['system_title']}</span>
-                                <!-- language -->
-                                <a href="#" class="language-dropdown" data-toggle="dropdown">
-                                    <img width="16" height="16" class="mr10" alt="" src="{$system['language']['flag']}">
-                                    <span>{$system['language']['title']}</span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="js_scroller">
-                                        {foreach $system['languages'] as $language}
-                                            <a class="dropdown-item" href="?lang={$language['code']}" rel="nofollow">
-                                                <img width="16" height="16" class="mr10" alt="" src="{$language['flag']}">{$language['title']}
-                                            </a>
-                                        {/foreach}
-                                    </div>
-                                </div>
-                                <!-- language -->
                             </div>
                             <ul class="links">
                                 {if $static_pages}

@@ -64,7 +64,7 @@
 
                 <!-- profile-date -->
                 <div class="profle-date-wrapper">
-                    {__($event['event_start_date']|date_format:"%b")}<br>{$event['event_start_date']|date_format:"%e"}
+                    {$event['event_start_date']|date_br:'month_short'}<br>{$event['event_start_date']|date_br:'day'}
                 </div>
                 <!-- profile-date -->
 
@@ -83,7 +83,7 @@
 
                 <!-- profile-meta -->
                 <div class="profle-meta-wrapper">
-                    <i class="fa fa-clock"></i> {$event['event_start_date']|date_format:"%e"} {__($event['event_start_date']|date_format:"%b")} {$event['event_start_date']|date_format:"%I:%M %p"} {__("to")} {$event['event_end_date']|date_format:"%e"} {__($event['event_end_date']|date_format:"%b")} {$event['event_end_date']|date_format:"%I:%M %p"}
+                    <i class="fa fa-clock"></i> {$event['event_start_date']|date_br:'event'} {__("to")} {$event['event_end_date']|date_br:'event'}
                 </div>
                 <!-- profile-meta -->
 
@@ -223,9 +223,9 @@
                                     <li>
                                         <div class="about-list-item">
                                             <i class="fa fa-clock fa-fw fa-lg"></i>
-                                            {$event['event_start_date']|date_format:"%e"} {__($event['event_start_date']|date_format:"%b")} - {$event['event_end_date']|date_format:"%e"} {__($event['event_end_date']|date_format:"%b")}<br>
+                                            {$event['event_start_date']|date_br:'day'} {$event['event_start_date']|date_br:'month_short'} - {$event['event_end_date']|date_br:'day'} {$event['event_end_date']|date_br:'month_short'}<br>
                                             <small class="text-muted">
-                                                {$event['event_start_date']|date_format:"%e"} {__($event['event_start_date']|date_format:"%b")} {$event['event_start_date']|date_format:"%I:%M %p"} {__("to")} {$event['event_end_date']|date_format:"%e"} {__($event['event_end_date']|date_format:"%b")} {$event['event_end_date']|date_format:"%I:%M %p"}
+                                                {$event['event_start_date']|date_br:'event'} {__("to")} {$event['event_end_date']|date_br:'event'}
                                             </small>
                                         </div>
                                     </li>
@@ -353,7 +353,7 @@
                         <!-- super admin alert -->
                         {if $user->_data['user_group'] < 3 && ($event['event_privacy'] == "secret" || $event['event_privacy'] == "closed") && (!$event['i_joined'] && !$event['i_admin']) }
                             <div class="alert alert-warning">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span>&times;</span></button>
                                 <div class="icon"><i class="fa fa-info-circle fa-2x"></i></div>
                                 <div class="text align-middle">
                                     {__("You can access this as your account is system admin account!")}
@@ -366,7 +366,7 @@
                             <!-- event pending posts -->
                             {if $event['pending_posts'] > 0}
                                 <div class="alert alert-info">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span>&times;</span></button>
                                     <div class="icon"><i class="fa fa-comments fa-lg"></i></div>
                                     <div class="text align-middle">
                                         <a href="?pending" class="alert-link">

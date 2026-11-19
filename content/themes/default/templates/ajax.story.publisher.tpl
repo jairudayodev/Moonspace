@@ -2,7 +2,7 @@
     <h6 class="modal-title">
         <i class="fa fa-photo-video mr10" style="color: #673ab7;"></i>{__("Create New Story")}
     </h6>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>

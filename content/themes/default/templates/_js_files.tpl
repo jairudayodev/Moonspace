@@ -11,9 +11,10 @@
     var system_debugging_mode = {if $system['DEBUGGING']}true{else}false{/if};
     /* language */
     var system_langauge_dir = "{strtolower($system['language']['dir'])}";
-    var system_langauge_code = "{substr($system['language']['code'], 0, -3)}";
+    var system_langauge_code = "pt_BR"; /* idioma dos plugins (TinyMCE etc.) */
+    var system_locale = "{$smarty.const.SYS_LOCALE}"; /* pt-BR: Intl, moment */
     /* datetime */
-    var system_datetime_format = {if $system['system_datetime_format'] == "m/d/Y H:i"}'MM/DD/YYYY HH:mm'{else}'DD/MM/YYYY HH:mm'{/if};
+    var system_datetime_format = 'DD/MM/YYYY HH:mm';
     /* theme */
     var theme_mode_night = {if $system['theme_mode_night']}true{else}false{/if};
     var theme_dir_rtl = {if $system['language']['dir'] == "LTR"}false{else}true{/if};
@@ -104,6 +105,7 @@
     __['Unblock User'] = "{__('Unblock User')}";
     __['Mark as Available'] = "{__('Mark as Available')}";
     __['Mark as Sold'] = "{__('Mark as Sold')}";
+    __['Mark as Closed'] = "{__('Mark as Closed')}";
     __['Save Post'] = "{__('Save Post')}";
     __['Unsave Post'] = "{__('Unsave Post')}";
     __['Boost Post'] = "{__('Boost Post')}";
@@ -438,6 +440,29 @@
     <!-- Admin Charts -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script>
+        /* gráficos em português do Brasil */
+        Highcharts.setOptions({
+            lang: {
+                decimalPoint: ',',
+                thousandsSep: '.',
+                loading: 'Carregando...',
+                months: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
+                shortMonths: ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'],
+                weekdays: ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'],
+                resetZoom: 'Desfazer zoom',
+                contextButtonTitle: 'Menu do gráfico',
+                viewFullscreen: 'Ver em tela cheia',
+                exitFullscreen: 'Sair da tela cheia',
+                printChart: 'Imprimir gráfico',
+                downloadPNG: 'Baixar imagem PNG',
+                downloadJPEG: 'Baixar imagem JPEG',
+                downloadPDF: 'Baixar documento PDF',
+                downloadSVG: 'Baixar imagem SVG',
+                noData: 'Sem dados para mostrar'
+            }
+        });
+    </script>
     {if $view == "dashboard"}
         <script>
            $(function () {

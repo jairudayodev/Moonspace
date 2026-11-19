@@ -19,8 +19,9 @@ Rede social simples e noturna, feita para conversar. O Moonspace reúne o essenc
 7. [Como o código funciona](#como-o-código-funciona)
 8. [O que foi removido na limpeza](#o-que-foi-removido-na-limpeza)
 9. [SEO](#seo)
-10. [Segurança](#segurança)
-11. [Ideias para o futuro](#ideias-para-o-futuro)
+10. [100% brasileiro (pt-BR)](#-100-brasileiro-pt-br)
+11. [Segurança](#segurança)
+12. [Ideias para o futuro](#ideias-para-o-futuro)
 
 ---
 
@@ -42,7 +43,7 @@ As funcionalidades são ligadas e desligadas em **Admin › Settings**. Quase to
 | **Carteira e Pro** | Saldo interno, transferências, pacotes Pro (pagamento por carteira, transferência bancária ou CoinPayments) | `wallet.php`, `packages.php`, `includes/ajax/payments/` |
 | **Notificações** | Notificações no site e push via OneSignal (opcional) | `notifications.php`, `OneSignalSDK*.js` |
 | **Moderação** | Painel admin, painel de moderador, denúncias, banimentos, lista negra | `admin.php`, `moderator.php` |
-| **Idiomas** | 13 idiomas: inglês (padrão) e mais 12 em `content/languages/locale/` | arquivos `.po` |
+| **Idioma** | Só português do Brasil (pt-BR), sem seletor de idioma ([detalhes](#-100-brasileiro-pt-br)) | `content/languages/locale/pt_BR/LC_MESSAGES/messages.po` |
 
 ---
 
@@ -156,7 +157,7 @@ Moonspace/
     │   ├── templates_compiled/  Cache do Smarty (gerado sozinho; pode ser apagado)
     │   ├── css/              style.min.css (tema original) + moonspace.css (visual do Moonspace, carregado por cima)
     │   ├── images/
-    ├── languages/locale/     Traduções (.po)
+    ├── languages/locale/pt_BR/  Tradução pt-BR (.po), o único idioma do site
     └── uploads/              Arquivos enviados pelos usuários (NÃO apagar)
 ```
 
@@ -205,7 +206,7 @@ Ajustes que dependem do painel (ficam no banco, não no código):
 
 - **Funções removidas do código.** Mantenha **desligados**: PayPal, Stripe, 2Checkout, Paystack, SMS via Twilio, chamadas de áudio/vídeo, login social (Google/Facebook/etc.), Live, Market, Offers, Jobs, Ads, Funding, Directory e Developers. Se algum for ligado, o link aparece mas leva a um erro 404 ou à mensagem *"This feature is not available"*.
 - **Prefixo dos uploads.** Em *Settings › Uploads*, troque o prefixo para `moonspace`. Fotos antigas continuam com `sngine_` no nome do arquivo, porque o banco aponta para esses nomes.
-- **Idiomas.** Em *Languages*. Só ative idiomas cuja pasta exista em `content/languages/locale/`.
+- **Idioma, moeda e datas.** Ficam fixos no código (pt-BR, real e horário de Brasília) e ignoram o painel. A página *Languages* do admin foi desativada.
 - **Títulos e textos.** O nome do site, as páginas estáticas e os modelos de e-mail ficam no banco e são editados pelo painel.
 
 ---
@@ -277,6 +278,33 @@ O que depende de você, fora do código:
 2. **Admin › Settings**: troque a descrição do site (usada como padrão nas outras páginas) por algo mais completo, por exemplo: *"Moonspace é uma rede social noturna para conversar: Pergunta da Noite todo dia às 20h, grupos, fóruns e mensagens."*
 3. **Hospedagem:** o InfinityFree mostra um desafio em JavaScript (`aes.js`) antes da página. Confira no Search Console (Inspecionar URL › Testar URL publicada) se o Google enxerga a página de verdade. Se ele só vir o desafio, o site não será indexado até mudar de hospedagem.
 4. **Links externos:** divulgar o endereço no Instagram, em perfis e no site do Eventeen ajuda o Google a descobrir e confiar no site.
+
+---
+
+## 🇧🇷 100% brasileiro (pt-BR)
+
+O Moonspace só existe em português do Brasil. Não há seletor de idioma: `?lang=`, o cookie `s_lang` e a tabela `system_languages` são ignorados.
+
+| O quê | Como | Onde |
+|---|---|---|
+| Identificador regional | `SYS_LOCALE = 'pt-BR'` (usado em `<html lang>`, moment.js e datetimepicker), `SYS_LOCALE_DIR = 'pt_BR'` (pasta da tradução) e `SYS_TIMEZONE = 'America/Sao_Paulo'` | `bootstrap.php` |
+| Textos | Todo texto da interface, de erros, de notificações e dos e-mails passa por `__("texto em inglês")` e é traduzido pelo `.po`. O código (variáveis, funções, chaves) continua em inglês | `content/languages/locale/pt_BR/LC_MESSAGES/messages.po` |
+| Datas no servidor | Modificador Smarty `date_br`: `{$data\|date_br:'long'}` → *5 de novembro de 2026*; também `short` (05/11/2026), `datetime`, `time`, `day`, `month`, `month_short` e `event` (*5 de nov. às 20:00*). Use `:true` para datas gravadas em UTC pelo sistema, que são convertidas para o horário de Brasília | `format_date_br()` em `includes/functions.php` |
+| Datas no navegador | moment.js em pt-BR ("há 5 minutos"); formulários de data em dd/mm/aaaa hh:mm | `core.js`, `user.js`, `_js_files.tpl` |
+| Números | `{$n\|number_format}` → 1.234 e `{$n\|number_format:2}` → 1.234,56 | `format_number_br()` |
+| Dinheiro | Moeda fixa em real: `print_money()` → R$ 1.234,56 | `bootstrap.php` e `print_money()` |
+| Gráficos do admin | Highcharts com meses, menus e separadores em português | `_js_files.tpl` |
+
+**Para traduzir um texto novo:** escreva o texto em inglês dentro de `__("...")` no PHP ou `{__("...")}` no template e acrescente no `.po`:
+
+```
+msgid "Your new text"
+msgstr "Seu texto novo"
+```
+
+Textos exclusivos do Moonspace, como os da Pergunta da Noite, também podem ser escritos direto em português.
+
+**Dados que ficam no banco** (nomes de países, gêneros, categorias, páginas estáticas): rode `sql/pt_br.sql` uma vez no phpMyAdmin. Ele só troca os nomes que ainda estão no padrão em inglês e define Brasil e real como padrão. Os textos de **Termos** e **Privacidade** são modelos genéricos e devem ser reescritos no painel (*Admin › Static Pages*), de preferência seguindo a LGPD.
 
 ---
 

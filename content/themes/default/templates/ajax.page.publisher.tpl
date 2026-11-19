@@ -2,7 +2,7 @@
     <h6 class="modal-title">
         <i class="fa fa-flag mr10" style="color: #2196f3;"></i>{__("Create New Page")}
     </h6>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>

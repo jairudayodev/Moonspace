@@ -39,8 +39,8 @@
                                 <td>{$row['announcement_id']}</td>
                                 <td>{$row['name']}</td>
                                 <td>{$row['type']}</td>
-                                <td>{$row['start_date']}</td>
-                                <td>{$row['end_date']}</td>
+                                <td>{$row['start_date']|date_br:'datetime'}</td>
+                                <td>{$row['end_date']|date_br:'datetime'}</td>
                                 <td>
                                     <a data-toggle="tooltip" data-placement="top" title='{__("Edit")}' href="{$system['system_url']}/{$control_panel['url']}/announcements/edit/{$row['announcement_id']}" class="btn btn-sm btn-icon btn-rounded btn-primary">
                                         <i class="fa fa-pencil-alt"></i>

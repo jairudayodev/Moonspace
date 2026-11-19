@@ -2,7 +2,7 @@
     <h6 class="modal-title">
         <i class="fa fa-shopping-cart mr10" style="color: #2b53a4;"></i>{__("Sell New Product")}
     </h6>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>

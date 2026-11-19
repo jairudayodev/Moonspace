@@ -84,10 +84,7 @@
                             </label>
                             <div class="col-md-9">
                                 <select class="form-control" name="language">
-                                    {foreach $system['languages'] as $language}
-                                        {$parts = explode('_', $language['code'])}
-                                        <option {if $system['default_language']['language_id'] == $language['language_id']}selected{/if} value="{$parts[0]}_{strtoupper($parts[1])}">{$language['title']}</option>
-                                    {/foreach}
+                                    <option value="pt_BR" selected>Português (Brasil)</option>
                                 </select>
                                 <span class="form-text">
                                     {__("Select the language of generated names")}
@@ -148,10 +145,7 @@
                             </label>
                             <div class="col-md-9">
                                 <select class="form-control" name="language">
-                                    {foreach $system['languages'] as $language}
-                                        {$parts = explode('_', $language['code'])}
-                                        <option {if $system['default_language']['language_id'] == $language['language_id']}selected{/if} value="{$parts[0]}_{strtoupper($parts[1])}">{$language['title']}</option>
-                                    {/foreach}
+                                    <option value="pt_BR" selected>Português (Brasil)</option>
                                 </select>
                                 <span class="form-text">
                                     {__("Select the language of generated names")}
@@ -226,10 +220,7 @@
                             </label>
                             <div class="col-md-9">
                                 <select class="form-control" name="language">
-                                    {foreach $system['languages'] as $language}
-                                        {$parts = explode('_', $language['code'])}
-                                        <option {if $system['default_language']['language_id'] == $language['language_id']}selected{/if} value="{$parts[0]}_{strtoupper($parts[1])}">{$language['title']}</option>
-                                    {/foreach}
+                                    <option value="pt_BR" selected>Português (Brasil)</option>
                                 </select>
                                 <span class="form-text">
                                     {__("Select the language of generated names")}
@@ -507,7 +498,7 @@
                         <i class="fa fa-server fa-2x"></i>
                     </div>
                     <div class="text">
-                        {__("You last backup")} <span class="badge badge-pill badge-lg badge-warning">{if $system['last_backup_time']}{$system['last_backup_time']}{else}{__("N/A")}{/if}</span><br>
+                        {__("You last backup")} <span class="badge badge-pill badge-lg badge-warning">{if $system['last_backup_time']}{$system['last_backup_time']|date_br:'datetime':true}{else}{__("N/A")}{/if}</span><br>
                         {__("You can find backups in")} <strong>content/backups</strong><br>
                         {__("Taking backup might take some time and you can download backups via FTP")}
                     </div>

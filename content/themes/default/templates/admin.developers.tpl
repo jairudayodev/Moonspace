@@ -100,7 +100,7 @@
                                 </td>
                                 <td>{$row['app_auth_id']}</td>
                                 <td>{$row['app_auth_secret']}</td>
-                                <td>{$row['app_date']|date_format:"%e %B %Y"}</td>
+                                <td>{$row['app_date']|date_br:'long':true}</td>
                                 <td>
                                     <a data-toggle="tooltip" data-placement="top" title='{__("Edit")}' href="{$system['system_url']}/developers/edit/{$row['app_auth_id']}" class="btn btn-sm btn-icon btn-rounded btn-primary">
                                         <i class="fa fa-pencil-alt"></i>

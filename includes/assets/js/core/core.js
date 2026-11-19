@@ -169,10 +169,11 @@ function initialize() {
     $(".js_moment").each(function () {
         var _this = $(this);
         var time_utc = _this.data('time');
-        var locale = $('html').attr('lang') || 'en-us';
+        var locale = $('html').attr('lang') || 'pt-BR';
         var offset = moment().utcOffset();
         var time = moment(time_utc).add({ minutes: offset }).locale(locale);
-        _this.text(time.fromNow()).attr('title', time.format("dddd, MMMM D, YYYY h:m a"));
+        /* ex.: "há 5 minutos" e, no title, "quinta-feira, 19 de novembro de 2026 às 21:30" */
+        _this.text(time.fromNow()).attr('title', time.format("dddd, D [de] MMMM [de] YYYY [às] HH:mm"));
     });
 }
 
@@ -380,7 +381,7 @@ $(function () {
             break;
     }
     if (_p != 6 && _t[_t[0]] != _l) {
-        document.write("Your session hash has been broken, Please contact Moonspace's support!");
+        document.write("A verificação de segurança da sua sessão falhou. Entre em contato com o suporte do Moonspace.");
     }
 
 

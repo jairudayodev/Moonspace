@@ -147,7 +147,7 @@
                                                 {if $system['show_usernames_enabled']}{$row['user_name']}{else}{$row['user_firstname']} {$row['user_lastname']}{/if}
                                             </a>
                                         </td>
-                                        <td>{print_money($row['campaign_budget']|number_format:2)}</td>
+                                        <td>{print_money($row['campaign_budget'])}</td>
                                         <td>
                                             <span class="badge badge-pill badge-lg badge-warning">{__("Pending")}</span>
                                         </td>
@@ -199,8 +199,8 @@
                                                 {if $system['show_usernames_enabled']}{$row['user_name']}{else}{$row['user_firstname']} {$row['user_lastname']}{/if}
                                             </a>
                                         </td>
-                                        <td>{print_money($row['campaign_budget']|number_format:2)}</td>
-                                        <td>{print_money($row['campaign_spend']|number_format:2)}</td>
+                                        <td>{print_money($row['campaign_budget'])}</td>
+                                        <td>{print_money($row['campaign_spend'])}</td>
                                         <td>
                                             {if $row['campaign_bidding'] == "click"}
                                                 {$row['campaign_clicks']} {__("Clicks")}
@@ -291,7 +291,7 @@
                                     {if $row['place'] == "header"}<i class='fa fa-chevron-circle-up fa-fw mr5'></i>{__("Header")}{/if}
                                     {if $row['place'] == "footer"}<i class='fa fa-chevron-circle-down fa-fw mr5'></i>{__("Footer")}{/if}
                                 </td>
-                                <td>{$row['time']|date_format:"%e %B %Y"}</td>
+                                <td>{$row['time']|date_br:'long':true}</td>
                                 <td>
                                     <a data-toggle="tooltip" data-placement="top" title='{__("Edit")}' href="{$system['system_url']}/{$control_panel['url']}/ads/edit/{$row['ads_id']}" class="btn btn-sm btn-icon btn-rounded btn-primary">
                                         <i class="fa fa-pencil-alt"></i>

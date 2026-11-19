@@ -325,7 +325,7 @@
                         <!-- super admin alert -->
                         {if $user->_data['user_group'] < 3 && ($group['group_privacy'] == "secret" || $group['group_privacy'] == "closed") && ($group['i_joined'] != "approved" && !$group['i_admin']) }
                             <div class="alert alert-warning">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span>&times;</span></button>
                                 <div class="icon"><i class="fa fa-info-circle fa-2x"></i></div>
                                 <div class="text align-middle">
                                     {__("You can access this as your account is system admin account!")}
@@ -338,7 +338,7 @@
                             <!-- group requests -->
                             {if $group['i_admin'] && $group['total_requests'] > 0}
                                 <div class="alert alert-info">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span>&times;</span></button>
                                     <div class="icon"><i class="fa fa-users fa-lg"></i></div>
                                     <div class="text align-middle">
                                         <a href="{$system['system_url']}/groups/{$group['group_name']}/settings/requests" class="alert-link">
@@ -352,7 +352,7 @@
                             <!-- group pending posts -->
                             {if $group['pending_posts'] > 0}
                                 <div class="alert alert-info">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span>&times;</span></button>
                                     <div class="icon"><i class="fa fa-comments fa-lg"></i></div>
                                     <div class="text align-middle">
                                         <a href="?pending" class="alert-link">

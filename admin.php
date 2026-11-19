@@ -36,7 +36,7 @@ try {
 			$_GET['view'] = 'dashboard';
 
 			// page header
-			page_header($control_panel['title'] . " " . __("Panel"));
+			page_header(($user->_is_admin) ? __("Admin Panel") : __("Moderator Panel"));
 
 			// get insights
 			$insights = [];
@@ -259,10 +259,8 @@ try {
 			break;
 
 		case 'languages':
-			// check admin|moderator permission
-			if ($user->_is_moderator) {
-				_error(__('System Message'), __("You don't have the right permission to access this"));
-			}
+			// o Moonspace é só em português do Brasil: a gestão de idiomas foi desativada
+			_error(404);
 
 			// get nested view content
 			switch ($_GET['sub_view']) {

@@ -32,7 +32,8 @@ define('SYS_URL', 'https://seu-dominio.com'); // sem barra no final (e.g http://
 
 
 // ** i18n settings ** //
-define('DEFAULT_LOCALE', 'en_us');
+// Não é mais usado: o idioma é fixo em pt-BR (SYS_LOCALE em bootstrap.php). Mantido só por compatibilidade.
+define('DEFAULT_LOCALE', 'pt_BR');
 
 
 /**

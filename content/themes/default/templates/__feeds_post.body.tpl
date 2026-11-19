@@ -258,44 +258,34 @@
                 {if $_post['origin']['is_anonymous']}
                     {__("Anonymous post")}
                 {else}
+                    {* ordem do português: "compartilhou a publicação de Fulano" *}
+                    <a href="{$system['system_url']}/posts/{$_post['origin']['post_id']}">
+                        {if $_post['origin']['post_type'] == 'link'}
+                            o link
+                        {elseif $_post['origin']['post_type'] == 'media'}
+                            {if $_post['origin']['media']['media_type'] != "soundcloud"}o vídeo{else}a música{/if}
+                        {elseif $_post['origin']['post_type'] == 'photos'}
+                            {if $_post['origin']['photos_num'] > 1}as fotos{else}a foto{/if}
+                        {elseif $_post['origin']['post_type'] == 'album'}
+                            o álbum
+                        {elseif $_post['origin']['post_type'] == 'poll'}
+                            a enquete
+                        {elseif $_post['origin']['post_type'] == 'video'}
+                            o vídeo
+                        {elseif $_post['origin']['post_type'] == 'audio'}
+                            o áudio
+                        {elseif $_post['origin']['post_type'] == 'file'}
+                            o arquivo
+                        {else}
+                            a publicação
+                        {/if}
+                    </a>
+                    de
                     <span class="js_user-popover" data-type="{$_post['origin']['user_type']}" data-uid="{$_post['origin']['user_id']}">
                         <a href="{$_post['origin']['post_author_url']}">
                             {$_post['origin']['post_author_name']}
-                        </a>{__("'s")}
-                    </span> 
-                    <a href="{$system['system_url']}/posts/{$_post['origin']['post_id']}">
-                        {if $_post['origin']['post_type'] == 'link'}
-                            {__("link")}
-
-                        {elseif $_post['origin']['post_type'] == 'media'}
-                            {if $_post['origin']['media']['media_type'] != "soundcloud"}
-                                {__("video")}
-                            {else}
-                                {__("song")}
-                            {/if}
-
-                        {elseif $_post['origin']['post_type'] == 'photos'}
-                            {if $_post['origin']['photos_num'] > 1}{__("photos")}{else}{__("photo")}{/if}
-
-                        {elseif $_post['origin']['post_type'] == 'album'}
-                            {__("album")}
-
-                        {elseif $_post['origin']['post_type'] == 'poll'}
-                            {__("poll")}
-
-                        {elseif $_post['origin']['post_type'] == 'video'}
-                            {__("video")}
-
-                        {elseif $_post['origin']['post_type'] == 'audio'}
-                            {__("audio")}
-
-                        {elseif $_post['origin']['post_type'] == 'file'}
-                            {__("file")}
-
-                        {else}
-                            {__("post")}
-                        {/if}
-                    </a>
+                        </a>
+                    </span>
                 {/if}
 
             {elseif $_post['post_type'] == "link"}
@@ -679,7 +669,7 @@
             <a class="post-media-image" href="{$system['system_url']}/posts/{$_post['post_id']}" target="_blank">
                 <div class="image" style="background-image:url('{$system['system_uploads']}/{$_post['offer']['thumbnail']}');"></div>
                 <div class="source">
-                    <i class="far fa-calendar-alt mr5"></i>{__("Expires")}: <strong>{$_post['offer']['end_date']|date_format:"%d/%m/%Y"}</strong>
+                    <i class="far fa-calendar-alt mr5"></i>{__("Expires")}: <strong>{$_post['offer']['end_date']|date_br:'short'}</strong>
                 </div>
                 <div class="icon">
                     {include file='__svg_icons.tpl' icon="offers" width="32px" height="32px"}

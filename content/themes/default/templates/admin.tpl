@@ -122,14 +122,6 @@
                             </li>
                             <!-- Design -->
 
-                            <!-- Languages -->
-                            <li {if $view == "languages"}class="active"{/if}>
-                                <a href="{$system['system_url']}/{$control_panel['url']}/languages">
-                                    <i class="fa fa-language fa-fw mr10" style="color: #3F51B5"></i>{__("Languages")}
-                                </a>
-                            </li>
-                            <!-- Languages -->
-
                             <!-- Countries -->
                             <li {if $view == "countries"}class="active"{/if}>
                                 <a href="{$system['system_url']}/{$control_panel['url']}/countries">

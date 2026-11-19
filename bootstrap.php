@@ -11,6 +11,12 @@
 define('SYS_VER', '3.4');
 
 
+// set system locale (o Moonspace é 100% brasileiro)
+define('SYS_LOCALE', 'pt-BR');              // identificador regional (BCP 47): <html lang>, Intl, moment
+define('SYS_LOCALE_DIR', 'pt_BR');          // pasta da tradução em content/languages/locale/
+define('SYS_TIMEZONE', 'America/Sao_Paulo'); // fuso usado para mostrar datas e horas
+
+
 // set absolut & base path
 define('ABSPATH', dirname(__FILE__) . '/');
 define('BASEPATH', dirname($_SERVER['PHP_SELF']));
@@ -65,9 +71,12 @@ if (!isset($_SESSION['secret'])) {
 require_once(ABSPATH . 'includes/libs/GettextTranslator/autoloader.php');
 $t = new Gettext\Translator();
 $t->register();
+/* único idioma do site: português do Brasil */
+$t->loadTranslations(Gettext\Translations::fromPoFile(ABSPATH . 'content/languages/locale/' . SYS_LOCALE_DIR . '/LC_MESSAGES/messages.po'));
 
 
 // time config
+/* o banco e as datas gravadas ficam em UTC; a exibição usa o fuso de Brasília (SYS_TIMEZONE) */
 date_default_timezone_set('UTC');
 $time = time();
 $minutes_to_add = 0;
@@ -188,53 +197,28 @@ if ($system['system_theme_mode_select']) {
     $system['theme_mode_night'] = $system['system_theme_night_on'];
 }
 
-/* get system languages */
-$get_system_languages = $db->query("SELECT * FROM system_languages WHERE enabled = '1' ORDER BY language_order") or _error("SQL_ERROR");
-while ($language = $get_system_languages->fetch_assoc()) {
-    $language['flag'] = get_picture($language['flag'], 'flag');
-    if ($language['default']) {
-        $system['default_language'] = $language;
-    }
-    $system['languages'][$language['code']] = $language;
-}
+/* system language: o Moonspace é só em português do Brasil (sem seletor de idioma).
+   A tradução (.po) já foi carregada na configuração do gettext, lá em cima. */
+$system['language'] = array(
+    'language_id' => 0,
+    'code' => SYS_LOCALE,
+    'title' => 'Português (Brasil)',
+    'flag' => '',
+    'dir' => 'LTR',
+    'default' => '1',
+    'enabled' => '1'
+);
+$system['default_language'] = $system['language'];
+$system['languages'] = array(SYS_LOCALE => $system['language']);
+$system['current_language'] = SYS_LOCALE;
 
-/* set system langauge */
-$system['current_language'] = DEFAULT_LOCALE;
-if (isset($_GET['lang'])) {
-    if (array_key_exists($_GET['lang'], $system['languages'])) {
-        $system['language'] = $system['languages'][$_GET['lang']];
-        if ($system['language']['code'] != DEFAULT_LOCALE) {
-            $t->loadTranslations(Gettext\Translations::fromPoFile(ABSPATH . 'content/languages/locale/' . $system['language']['code'] . '/LC_MESSAGES/messages.po'));
-        }
-        $system['current_language'] = $system['language']['code'];
-        /* set language cookie */
-        $secured = (get_system_protocol() == "https") ? true : false;
-        $expire = time() + 2592000;
-        setcookie('s_lang', $_GET['lang'], $expire, '/', "", $secured, true);
-    }
-} elseif (isset($_COOKIE['s_lang'])) {
-    if (array_key_exists($_COOKIE['s_lang'], $system['languages'])) {
-        $system['language'] = $system['languages'][$_COOKIE['s_lang']];
-        if ($system['language']['code'] != DEFAULT_LOCALE) {
-            $t->loadTranslations(Gettext\Translations::fromPoFile(ABSPATH . 'content/languages/locale/' . $system['language']['code'] . '/LC_MESSAGES/messages.po'));
-        }
-        $system['current_language'] = $system['language']['code'];
-    }
-} else {
-    if (isset($system['default_language'])) {
-        $system['language'] = $system['default_language'];
-        if ($system['default_language']['code'] != DEFAULT_LOCALE) {
-            $t->loadTranslations(Gettext\Translations::fromPoFile(ABSPATH . 'content/languages/locale/' . $system['default_language']['code'] . '/LC_MESSAGES/messages.po'));
-        }
-        $system['current_language'] = $system['default_language']['code'];
-    }
-}
+/* system currency: real brasileiro, no formato R$ 1.234,56 (ver print_money) */
+$system['system_currency'] = 'BRL';
+$system['system_currency_symbol'] = 'R$';
+$system['system_currency_dir'] = 'left';
 
-/* get system currency */
-$get_currency = $db->query("SELECT * FROM system_currencies WHERE system_currencies.default = '1'") or _error("SQL_ERROR");
-$currency = $get_currency->fetch_assoc();
-$system['system_currency'] = $currency['code'];
-$system['system_currency_symbol'] = $currency['symbol'];
+/* formato de data e hora dos formulários (datetimepicker e set_datetime): dd/mm/aaaa hh:mm */
+$system['system_datetime_format'] = 'd/m/Y H:i';
 
 /* get system withdrawal method array */
 $system['wallet_payment_method_array'] = explode(",", $system['wallet_payment_method']);
@@ -249,6 +233,10 @@ $smarty = new Smarty;
 $smarty->template_dir = ABSPATH . 'content/themes/' . $system['theme'] . '/templates';
 $smarty->compile_dir = ABSPATH . 'content/themes/' . $system['theme'] . '/templates_compiled';
 $smarty->loadFilter('output', 'trimwhitespace');
+/* datas no padrão brasileiro: {$data|date_br:'long'} -> "5 de novembro de 2026" (ver format_date_br) */
+$smarty->registerPlugin('modifier', 'date_br', 'format_date_br');
+/* números no padrão brasileiro: {$n|number_format} -> 1.234 e {$n|number_format:2} -> 1.234,56 */
+$smarty->registerPlugin('modifier', 'number_format', 'format_number_br');
 if (DEBUGGING) {
     /* templates read optional vars freely: PHP 8 turned those notices into warnings, mute them only while rendering */
     $smarty->error_reporting = E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED & ~E_USER_DEPRECATED;

@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="{if $page_locale}{$page_locale['html']}{else}{$system['language']['code']|replace:'_':'-'}{/if}" {if $system['language']['dir'] == "RTL"} dir="RTL" {/if}>
+<html lang="{$smarty.const.SYS_LOCALE}">
 
 <head>
 

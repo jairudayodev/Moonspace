@@ -2885,10 +2885,6 @@ class User
         }
         /* onesignal push notifications */
         if ($system['onesignal_notification_enabled'] && $receiver['onesignal_user_id']) {
-            /* set notification language to receiver's language */
-            if ($receiver['user_language'] != DEFAULT_LOCALE) {
-                $t->loadTranslations(Gettext\Translations::fromPoFile(ABSPATH . 'content/languages/locale/' . $receiver['user_language'] . '/LC_MESSAGES/messages.po'));
-            }
             /* prepare notification notify_id */
             $notify_id = ($notify_id) ? "?notify_id=" . $notify_id : "";
             /* prepare notification node_url */
@@ -13687,12 +13683,12 @@ class User
         }
         /* check app_auth_secret */
         if ($app['app_auth_secret'] !== $app_auth_secret) {
-            return_json(array('error' => true, 'message' => "Bad Request, invalid app_secret"));
+            return_json(array('error' => true, 'message' => "Requisição inválida: app_secret incorreto"));
         }
         /* check if user OAuthenticated this app before */
         $get_user_connection = $db->query(sprintf("SELECT * FROM developers_apps_users WHERE app_id = %s AND auth_key = %s", secure($app['app_id'], 'int'), secure($auth_key))) or _error("SQL_ERROR_THROWEN");
         if ($get_user_connection->num_rows == 0) {
-            return_json(array('error' => true, 'message' => "Bad Request, invalid auth_key"));
+            return_json(array('error' => true, 'message' => "Requisição inválida: auth_key incorreto"));
         }
         $user_connection = $get_user_connection->fetch_assoc();
         /* generate new auth_key */
@@ -13728,14 +13724,14 @@ class User
         /* check if user OAuthenticated this app before */
         $check_user_connection = $db->query(sprintf("SELECT * FROM developers_apps_users WHERE access_token = %s", secure($access_token))) or _error("SQL_ERROR_THROWEN");
         if ($check_user_connection->num_rows == 0) {
-            return_json(array('error' => true, 'message' => "Bad Request, invalid access_token"));
+            return_json(array('error' => true, 'message' => "Requisição inválida: access_token incorreto"));
         }
         $user_connection = $check_user_connection->fetch_assoc();
         /* check if there is access_token & valid */
         if ($user_connection['access_token'] && (strtotime($user_connection['access_token_date']) >= strtotime("-1 minutes"))) {
             return $user_connection['user_id'];
         } else {
-            return_json(array('error' => true, 'message' => "Bad Request, expired access_token"));
+            return_json(array('error' => true, 'message' => "Requisição inválida: access_token expirado"));
         }
     }
 

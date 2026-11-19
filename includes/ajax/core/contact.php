@@ -33,7 +33,7 @@ try {
     }
 
     // prepare email
-    $subject = "New email message from " . $system['system_title'];
+    $subject = "Nova mensagem pelo formulário de contato do " . $system['system_title'];
     $body = get_email_template("contact_form_email", $subject, ["_POST" => $_POST]);
 
     // send email

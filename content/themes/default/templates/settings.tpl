@@ -1745,7 +1745,7 @@
                                         </label>
                                         <div class="col-md-9">
                                             <p class="form-control-plaintext">
-                                                {$user->_data['user_subscription_date']|date_format:"%e %B %Y"}
+                                                {$user->_data['user_subscription_date']|date_br:'long':true}
                                             </p>
                                         </div>
                                     </div>
@@ -1758,7 +1758,7 @@
                                                 {if $user->_data['period'] == "life"}
                                                     {__("Life Time")}
                                                 {else}
-                                                    {$user->_data['subscription_end']|date_format:"%e %B %Y"} ({if $user->_data['subscription_timeleft'] > 0}{__("Remaining")} {$user->_data['subscription_timeleft']} {__("Days")}{else}{__("Expired")}{/if})
+                                                    {$user->_data['subscription_end']|date_br:'long':true} ({if $user->_data['subscription_timeleft'] > 0}{__("Remaining")} {$user->_data['subscription_timeleft']} {__("Days")}{else}{__("Expired")}{/if})
                                                 {/if}
                                             </p>
                                         </div>
@@ -1826,7 +1826,7 @@
                             </div>
                             <div class="text">
                                 <strong>{__("Invitations System")}</strong><br>
-                                {__("You have")} <strong><span class="badge badge-pill badge-danger">{if $system['invitation_user_limit'] == 0}{__("Unlimited")}{else}{$system['invitation_user_limit']}{/if}</span></strong> {__("invitations")} {if $system['invitation_user_limit'] != 0}{__("every")} {__($system['invitation_expire_period']|ucfirst)}{/if}
+                                {__("You have")} <strong><span class="badge badge-pill badge-danger">{if $system['invitation_user_limit'] == 0}{__("Unlimited")}{else}{$system['invitation_user_limit']}{/if}</span></strong> {__("invitations")} {if $system['invitation_user_limit'] != 0}{__("every")} {__($system['invitation_expire_period']|ucfirst)|lower}{/if}
                                 <br>
                             </div>
                         </div>
@@ -1880,7 +1880,7 @@
                                         {foreach $invitation_codes as $invitation_code}
                                             <tr>
                                                 <td><span class="badge badge-pill badge-lg badge-light">{$invitation_code['code']}</span></td>
-                                                <td>{$invitation_code['created_date']|date_format:"%e %B %Y"}</td>
+                                                <td>{$invitation_code['created_date']|date_br:'long':true}</td>
                                                 <td>
                                                     {if $invitation_code['used']}
                                                         <span class="badge badge-pill badge-lg badge-danger">{__("Yes")}</span>
@@ -1929,11 +1929,11 @@
                                     <strong>{__("Affiliates System")}</strong><br>
                                     {__("Earn up to")} 
                                     {if $system['affiliate_type'] == "registration"}
-                                        {print_money($system['affiliates_per_user']|number_format:2)} {__("For each user you will refer")}.<br>
+                                        {print_money($system['affiliates_per_user'])} {__("For each user you will refer")}.<br>
                                         {__("You will be paid when")} {__("new user registered")}
                                     {else}
                                         {if $system['affiliate_payment_type'] == "fixed"}
-                                            {print_money($system['affiliates_per_user']|number_format:2)} {__("For each user you will refer")}.<br>
+                                            {print_money($system['affiliates_per_user'])} {__("For each user you will refer")}.<br>
                                         {else}
                                             {$system['affiliates_percentage']}% {__("From the package price of your refered user")}.<br>
                                         {/if}
@@ -1997,7 +1997,7 @@
                                         <div class="stat-cell">
                                             <i class="fa fas fa-donate bg-icon"></i>
                                             <div class="h3 mtb10">
-                                                {print_money($user->_data['user_affiliate_balance']|number_format:2)}
+                                                {print_money($user->_data['user_affiliate_balance'])}
                                             </div>
                                         </div>
                                     </div>
@@ -2040,7 +2040,7 @@
                                         <div class="col-md-9">
                                             <h6>
                                                 <span class="badge badge-lg badge-info">
-                                                    {print_money($user->_data['user_affiliate_balance']|number_format:2)}
+                                                    {print_money($user->_data['user_affiliate_balance'])}
                                                 </span>
                                             </h6>
                                         </div>
@@ -2138,7 +2138,7 @@
                                                 {foreach $payments as $payment}
                                                     <tr>
                                                         <td>{$payment@iteration}</td>
-                                                        <td>{print_money($payment['amount']|number_format:2)}</td>
+                                                        <td>{print_money($payment['amount'])}</td>
                                                         <td>
                                                             {if $payment['method'] == "custom"}
                                                                 {$system['affiliate_payment_method_custom']}
@@ -2281,7 +2281,7 @@
                                         <div class="stat-cell">
                                             <i class="fa fas fa-donate bg-icon"></i>
                                             <div class="h3 mtb10">
-                                                {print_money(((1/$system['points_per_currency'])*$user->_data['user_points'])|number_format:2)}
+                                                {print_money(((1/$system['points_per_currency'])*$user->_data['user_points']))}
                                             </div>
                                         </div>
                                     </div>
@@ -2301,7 +2301,7 @@
                                         <div class="col-md-9">
                                             <h6>
                                                 <span class="badge badge-lg badge-info">
-                                                    {print_money(((1/$system['points_per_currency'])*$user->_data['user_points'])|number_format:2)}
+                                                    {print_money(((1/$system['points_per_currency'])*$user->_data['user_points']))}
                                                 </span>
                                             </h6>
                                         </div>
@@ -2399,7 +2399,7 @@
                                                 {foreach $payments as $payment}
                                                     <tr>
                                                         <td>{$payment@iteration}</td>
-                                                        <td>{print_money($payment['amount']|number_format:2)}</td>
+                                                        <td>{print_money($payment['amount'])}</td>
                                                         <td>
                                                             {if $payment['method'] == "custom"}
                                                                 {$system['points_payment_method_custom']}
@@ -2466,7 +2466,7 @@
                                         <div class="col-md-9">
                                             <h6>
                                                 <span class="badge badge-lg badge-info">
-                                                    {print_money($user->_data['user_funding_balance']|number_format:2)}
+                                                    {print_money($user->_data['user_funding_balance'])}
                                                 </span>
                                             </h6>
                                         </div>
@@ -2564,7 +2564,7 @@
                                                 {foreach $payments as $payment}
                                                     <tr>
                                                         <td>{$payment@iteration}</td>
-                                                        <td>{print_money($payment['amount']|number_format:2)}</td>
+                                                        <td>{print_money($payment['amount'])}</td>
                                                         <td>
                                                             {if $payment['method'] == "custom"}
                                                                 {$system['affiliate_payment_method_custom']}
@@ -2605,7 +2605,7 @@
                                         <div class="stat-cell">
                                             <i class="fa fas fa-donate bg-icon"></i>
                                             <div class="h3 mtb10">
-                                                {print_money($user->_data['user_funding_balance']|number_format:2)}
+                                                {print_money($user->_data['user_funding_balance'])}
                                             </div>
                                         </div>
                                     </div>

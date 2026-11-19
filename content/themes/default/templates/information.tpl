@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{$system['language']['code']}" {if $system['language']['dir'] == "RTL"} dir="RTL" {/if}>
+<html lang="{$smarty.const.SYS_LOCALE}">
     <head>
         <!-- Meta -->
         <meta charset="UTF-8">
@@ -104,11 +104,11 @@
                                 {__("User Gender")}
                             </li>
                             <li class="list-group-item">
-                                <span class="float-right badge badge-lg badge-pill badge-secondary">{$user_data['information']['user_registered']|date_format:"%e %B %Y"}</span>
+                                <span class="float-right badge badge-lg badge-pill badge-secondary">{$user_data['information']['user_registered']|date_br:'long':true}</span>
                                 {__("Joined")}
                             </li>
                             <li class="list-group-item">
-                                <span class="float-right badge badge-lg badge-pill badge-secondary">{$user_data['information']['user_last_seen']|date_format:"%e %B %Y"}</span>
+                                <span class="float-right badge badge-lg badge-pill badge-secondary">{$user_data['information']['user_last_seen']|date_br:'long':true}</span>
                                 {__("Last Login")}
                             </li>
                         </ul>

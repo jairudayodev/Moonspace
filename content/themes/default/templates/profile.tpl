@@ -530,11 +530,7 @@
                                             <li>
                                                 <div class="about-list-item">
                                                     <i class="fa fa-birthday-cake fa-fw fa-lg"></i>
-                                                    {if $system['system_datetime_format'] == "d/m/Y H:i"}
-                                                        {$profile['user_birthdate']|date_format:"%d/%m/%Y"}
-                                                    {else}
-                                                        {$profile['user_birthdate']|date_format:"%m/%d/%Y"}
-                                                    {/if}
+                                                    {$profile['user_birthdate']|date_br:'short'}
                                                     
                                                 </div>
                                             </li>

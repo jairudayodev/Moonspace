@@ -555,12 +555,12 @@
                                         {$row['name']}
                                     </a>
                                 </td>
-                                <td>{$row['user_subscription_date']|date_format:"%e %B %Y"}</td>
+                                <td>{$row['user_subscription_date']|date_br:'long':true}</td>
                                 <td>
                                     {if $row['period'] == "life"}
                                         {__("Life Time")}
                                     {else}
-                                        {$row['subscription_end']|date_format:"%e %B %Y"} ({if $row['subscription_timeleft'] > 0}{__("Remaining")} {$row['subscription_timeleft']} {__("Days")}{else}{__("Expired")}{/if})
+                                        {$row['subscription_end']|date_br:'long':true} ({if $row['subscription_timeleft'] > 0}{__("Remaining")} {$row['subscription_timeleft']} {__("Days")}{else}{__("Expired")}{/if})
                                     {/if}
                                 </td>
                                 <td>
@@ -583,7 +583,7 @@
                     <div class="stat-panel bg-gradient-primary">
                         <div class="stat-cell">
                             <i class="fa fa-dollar-sign bg-icon"></i>
-                            <span class="text-xxlg">{print_money($total_earnings|number_format:2)}</span><br>
+                            <span class="text-xxlg">{print_money($total_earnings)}</span><br>
                             <span class="text-lg">{__("Total earnings")}</span><br>
                         </div>
                     </div>
@@ -592,7 +592,7 @@
                     <div class="stat-panel bg-gradient-info">
                         <div class="stat-cell">
                             <i class="fa fa-dollar-sign bg-icon"></i>
-                            <span class="text-xxlg">{print_money($month_earnings|number_format:2)}</span><br>
+                            <span class="text-xxlg">{print_money($month_earnings)}</span><br>
                             <span class="text-lg">{__("This month earnings")}</span><br>
                         </div>
                     </div>
@@ -613,7 +613,7 @@
                             <tr>
                                 <td>{$key}</td>
                                 <td>{$value['sales']}</td>
-                                <td>{print_money($value['earnings']|number_format:2)}</td>
+                                <td>{print_money($value['earnings'])}</td>
                             </tr>
                         {/foreach}
                     </tbody>

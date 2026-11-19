@@ -213,10 +213,10 @@
                                                             <a class="dropdown-item" href="{$system['system_url']}/settings/points">{__("Points")}: <span class="badge badge-info">{$user->_data['user_points']}</span></a>
                                                         {/if}
                                                         {if $system['wallet_enabled']}
-                                                            <a class="dropdown-item" href="{$system['system_url']}/wallet">{__("Wallet")}: <span class="badge badge-success">{print_money($user->_data['user_wallet_balance']|number_format:2)}</span></a>
+                                                            <a class="dropdown-item" href="{$system['system_url']}/wallet">{__("Wallet")}: <span class="badge badge-success">{print_money($user->_data['user_wallet_balance'])}</span></a>
                                                         {/if}
                                                         {if $user->_data['can_raise_funding']}
-                                                            <a class="dropdown-item" href="{$system['system_url']}/settings/funding">{__("Funding")}: <span class="badge badge-success">{print_money($user->_data['user_funding_balance']|number_format:2)}</span></a>
+                                                            <a class="dropdown-item" href="{$system['system_url']}/settings/funding">{__("Funding")}: <span class="badge badge-success">{print_money($user->_data['user_funding_balance'])}</span></a>
                                                         {/if}
                                                         <div class="dropdown-divider"></div>
                                                     {/if}

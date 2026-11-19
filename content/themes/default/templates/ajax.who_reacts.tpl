@@ -22,7 +22,7 @@
         <!-- panel nav -->
     </div>
     <!-- close -->
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
         <span aria-hidden="true">&times;</span>
     </button>
     <!-- close -->

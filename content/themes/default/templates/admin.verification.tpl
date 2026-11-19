@@ -40,7 +40,7 @@
                                 <td>
                                     <span class="badge badge-pill badge-lg badge-{$row['color']}">{$row['node_type']|capitalize}</span>
                                 </td>
-                                <td>{$row['time']|date_format:"%e %B %Y"}</td>
+                                <td>{$row['time']|date_br:'long':true}</td>
                                 <td>
                                     <button data-toggle="tooltip" data-placement="top" title='{__("View Verification Documents")}' class="btn btn-sm btn-icon btn-rounded btn-info js_admin-verification-documents" data-photo="{$system['system_uploads']}/{$row['photo']}" data-passport="{$system['system_uploads']}/{$row['passport']}" data-message="{$row['message']}" data-handle="{$row['node_type']}" data-node-id="{$row['node_id']}" data-request-id="{$row['request_id']}">
                                         <i class="fa fa-paperclip"></i>
@@ -88,7 +88,7 @@
                                         {$row['user_name']}
                                     </a>
                                 </td>
-                                <td>{$row['user_registered']|date_format:"%e %B %Y"}</td>
+                                <td>{$row['user_registered']|date_br:'long':true}</td>
                                 <td>
                                     <a data-toggle="tooltip" data-placement="top" title='{__("Edit")}' href="{$system['system_url']}/{$control_panel['url']}/users/edit/{$row['user_id']}" class="btn btn-sm btn-icon btn-rounded btn-primary">
                                         <i class="fa fa-pencil-alt"></i>

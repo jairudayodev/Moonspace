@@ -73,7 +73,7 @@
                                 </a>
                             </td>
 
-                            <td>{$row['time']|date_format:"%e %B %Y"}</td>
+                            <td>{$row['time']|date_br:'long':true}</td>
                             <td>
                                 {if $row['node_type'] == "user"}
                                     <a data-toggle="tooltip" data-placement="top" title='{__("Edit")}' target="_blank" href="{$system['system_url']}/{$control_panel['url']}/users/edit/{$row['node_id']}" class="btn btn-sm btn-icon btn-rounded btn-primary">

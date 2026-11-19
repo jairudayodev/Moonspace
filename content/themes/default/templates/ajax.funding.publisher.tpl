@@ -2,7 +2,7 @@
     <h6 class="modal-title">
         <i class="fa fa-hand-holding-usd mr10" style="color: #4caf50;"></i>{__("Create New Funding Request")}
     </h6>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>

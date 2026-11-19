@@ -2,7 +2,7 @@
     <h6 class="modal-title">
         <i class="fa fa-calendar-plus mr10" style="color: #f79f58;"></i>{__("Create New Event")}
     </h6>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>

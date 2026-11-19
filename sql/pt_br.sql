@@ -1,0 +1,372 @@
+-- Moonspace 100% brasileiro: dados do banco em português do Brasil
+-- Rode UMA vez no phpMyAdmin (aba SQL). Pode rodar de novo sem problema.
+-- Só troca os nomes que ainda estão exatamente como o padrão em inglês da instalação;
+-- o que você já editou pelo painel não é alterado.
+
+SET NAMES utf8mb4;
+
+-- Brasil como país padrão, primeiro da lista
+UPDATE `system_countries` SET `default` = IF(`country_code` = 'BR', '1', '0');
+UPDATE `system_countries` SET `country_order` = 0 WHERE `country_code` = 'BR';
+
+-- Real como moeda padrão (o código já força R$, isto deixa o painel coerente)
+UPDATE `system_currencies` SET `default` = IF(`code` = 'BRL', '1', '0');
+UPDATE `system_currencies` SET `name` = 'Real brasileiro', `symbol` = 'R$' WHERE `code` = 'BRL';
+
+-- Opções do sistema: formato de data e hora e posição do símbolo da moeda
+UPDATE `system_options` SET `option_value` = 'd/m/Y H:i' WHERE `option_name` = 'system_datetime_format';
+UPDATE `system_options` SET `option_value` = 'left' WHERE `option_name` = 'system_currency_dir';
+
+-- Idioma dos usuários (o site ignora este campo, mas fica coerente)
+UPDATE `users` SET `user_language` = 'pt-BR';
+
+-- Páginas estáticas: só os títulos. Os textos de Termos e Privacidade são modelos genéricos
+-- e devem ser reescritos no painel (Admin › Static Pages).
+UPDATE `static_pages` SET `page_title` = 'Sobre' WHERE `page_url` = 'about' AND `page_title` = 'About';
+UPDATE `static_pages` SET `page_title` = 'Termos de uso' WHERE `page_url` = 'terms' AND `page_title` = 'Terms';
+UPDATE `static_pages` SET `page_title` = 'Política de privacidade' WHERE `page_url` = 'privacy' AND `page_title` = 'Privacy';
+
+-- Países
+UPDATE `system_countries` SET `country_name` = 'Afeganistão' WHERE `country_name` = 'Afghanistan';
+UPDATE `system_countries` SET `country_name` = 'Albânia' WHERE `country_name` = 'Albania';
+UPDATE `system_countries` SET `country_name` = 'Argélia' WHERE `country_name` = 'Algeria';
+UPDATE `system_countries` SET `country_name` = 'Samoa Americana' WHERE `country_name` = 'American Samoa';
+UPDATE `system_countries` SET `country_name` = 'Anguila' WHERE `country_name` = 'Anguilla';
+UPDATE `system_countries` SET `country_name` = 'Antártida' WHERE `country_name` = 'Antarctica';
+UPDATE `system_countries` SET `country_name` = 'Antígua e Barbuda' WHERE `country_name` = 'Antigua and Barbuda';
+UPDATE `system_countries` SET `country_name` = 'Armênia' WHERE `country_name` = 'Armenia';
+UPDATE `system_countries` SET `country_name` = 'Austrália' WHERE `country_name` = 'Australia';
+UPDATE `system_countries` SET `country_name` = 'Áustria' WHERE `country_name` = 'Austria';
+UPDATE `system_countries` SET `country_name` = 'Azerbaijão' WHERE `country_name` = 'Azerbaijan';
+UPDATE `system_countries` SET `country_name` = 'Bahrein' WHERE `country_name` = 'Bahrain';
+UPDATE `system_countries` SET `country_name` = 'Bélgica' WHERE `country_name` = 'Belgium';
+UPDATE `system_countries` SET `country_name` = 'Bermudas' WHERE `country_name` = 'Bermuda';
+UPDATE `system_countries` SET `country_name` = 'Butão' WHERE `country_name` = 'Bhutan';
+UPDATE `system_countries` SET `country_name` = 'Bolívia' WHERE `country_name` = 'Bolivia';
+UPDATE `system_countries` SET `country_name` = 'Bósnia e Herzegovina' WHERE `country_name` = 'Bosnia and Herzegovina';
+UPDATE `system_countries` SET `country_name` = 'Botsuana' WHERE `country_name` = 'Botswana';
+UPDATE `system_countries` SET `country_name` = 'Ilha Bouvet' WHERE `country_name` = 'Bouvet Island';
+UPDATE `system_countries` SET `country_name` = 'Brasil' WHERE `country_name` = 'Brazil';
+UPDATE `system_countries` SET `country_name` = 'Território Britânico do Oceano Índico' WHERE `country_name` = 'British Indian Ocean Territory';
+UPDATE `system_countries` SET `country_name` = 'Brunei' WHERE `country_name` = 'Brunei Darussalam';
+UPDATE `system_countries` SET `country_name` = 'Bulgária' WHERE `country_name` = 'Bulgaria';
+UPDATE `system_countries` SET `country_name` = 'Camboja' WHERE `country_name` = 'Cambodia';
+UPDATE `system_countries` SET `country_name` = 'Camarões' WHERE `country_name` = 'Cameroon';
+UPDATE `system_countries` SET `country_name` = 'Canadá' WHERE `country_name` = 'Canada';
+UPDATE `system_countries` SET `country_name` = 'Cabo Verde' WHERE `country_name` = 'Cape Verde';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Cayman' WHERE `country_name` = 'Cayman Islands';
+UPDATE `system_countries` SET `country_name` = 'República Centro-Africana' WHERE `country_name` = 'Central African Republic';
+UPDATE `system_countries` SET `country_name` = 'Chade' WHERE `country_name` = 'Chad';
+UPDATE `system_countries` SET `country_name` = 'Ilha Christmas' WHERE `country_name` = 'Christmas Island';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Cocos (Keeling)' WHERE `country_name` = 'Cocos (Keeling) Islands';
+UPDATE `system_countries` SET `country_name` = 'Colômbia' WHERE `country_name` = 'Colombia';
+UPDATE `system_countries` SET `country_name` = 'Comores' WHERE `country_name` = 'Comoros';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Cook' WHERE `country_name` = 'Cook Islands';
+UPDATE `system_countries` SET `country_name` = 'Croácia' WHERE `country_name` = 'Croatia (Hrvatska)';
+UPDATE `system_countries` SET `country_name` = 'Chipre' WHERE `country_name` = 'Cyprus';
+UPDATE `system_countries` SET `country_name` = 'República Tcheca' WHERE `country_name` = 'Czech Republic';
+UPDATE `system_countries` SET `country_name` = 'Dinamarca' WHERE `country_name` = 'Denmark';
+UPDATE `system_countries` SET `country_name` = 'Djibuti' WHERE `country_name` = 'Djibouti';
+UPDATE `system_countries` SET `country_name` = 'República Dominicana' WHERE `country_name` = 'Dominican Republic';
+UPDATE `system_countries` SET `country_name` = 'Timor-Leste' WHERE `country_name` = 'East Timor';
+UPDATE `system_countries` SET `country_name` = 'Equador' WHERE `country_name` = 'Ecuador';
+UPDATE `system_countries` SET `country_name` = 'Egito' WHERE `country_name` = 'Egypt';
+UPDATE `system_countries` SET `country_name` = 'Guiné Equatorial' WHERE `country_name` = 'Equatorial Guinea';
+UPDATE `system_countries` SET `country_name` = 'Eritreia' WHERE `country_name` = 'Eritrea';
+UPDATE `system_countries` SET `country_name` = 'Estônia' WHERE `country_name` = 'Estonia';
+UPDATE `system_countries` SET `country_name` = 'Etiópia' WHERE `country_name` = 'Ethiopia';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Malvinas' WHERE `country_name` = 'Falkland Islands (Malvinas)';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Faroé' WHERE `country_name` = 'Faroe Islands';
+UPDATE `system_countries` SET `country_name` = 'Finlândia' WHERE `country_name` = 'Finland';
+UPDATE `system_countries` SET `country_name` = 'França' WHERE `country_name` = 'France';
+UPDATE `system_countries` SET `country_name` = 'França Metropolitana' WHERE `country_name` = 'France, Metropolitan';
+UPDATE `system_countries` SET `country_name` = 'Guiana Francesa' WHERE `country_name` = 'French Guiana';
+UPDATE `system_countries` SET `country_name` = 'Polinésia Francesa' WHERE `country_name` = 'French Polynesia';
+UPDATE `system_countries` SET `country_name` = 'Terras Austrais Francesas' WHERE `country_name` = 'French Southern Territories';
+UPDATE `system_countries` SET `country_name` = 'Gabão' WHERE `country_name` = 'Gabon';
+UPDATE `system_countries` SET `country_name` = 'Gâmbia' WHERE `country_name` = 'Gambia';
+UPDATE `system_countries` SET `country_name` = 'Geórgia' WHERE `country_name` = 'Georgia';
+UPDATE `system_countries` SET `country_name` = 'Alemanha' WHERE `country_name` = 'Germany';
+UPDATE `system_countries` SET `country_name` = 'Gana' WHERE `country_name` = 'Ghana';
+UPDATE `system_countries` SET `country_name` = 'Grécia' WHERE `country_name` = 'Greece';
+UPDATE `system_countries` SET `country_name` = 'Groenlândia' WHERE `country_name` = 'Greenland';
+UPDATE `system_countries` SET `country_name` = 'Granada' WHERE `country_name` = 'Grenada';
+UPDATE `system_countries` SET `country_name` = 'Guadalupe' WHERE `country_name` = 'Guadeloupe';
+UPDATE `system_countries` SET `country_name` = 'Guiné' WHERE `country_name` = 'Guinea';
+UPDATE `system_countries` SET `country_name` = 'Guiné-Bissau' WHERE `country_name` = 'Guinea-Bissau';
+UPDATE `system_countries` SET `country_name` = 'Guiana' WHERE `country_name` = 'Guyana';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Heard e McDonald' WHERE `country_name` = 'Heard and Mc Donald Islands';
+UPDATE `system_countries` SET `country_name` = 'Hungria' WHERE `country_name` = 'Hungary';
+UPDATE `system_countries` SET `country_name` = 'Islândia' WHERE `country_name` = 'Iceland';
+UPDATE `system_countries` SET `country_name` = 'Índia' WHERE `country_name` = 'India';
+UPDATE `system_countries` SET `country_name` = 'Ilha de Man' WHERE `country_name` = 'Isle of Man';
+UPDATE `system_countries` SET `country_name` = 'Indonésia' WHERE `country_name` = 'Indonesia';
+UPDATE `system_countries` SET `country_name` = 'Irã' WHERE `country_name` = 'Iran (Islamic Republic of)';
+UPDATE `system_countries` SET `country_name` = 'Iraque' WHERE `country_name` = 'Iraq';
+UPDATE `system_countries` SET `country_name` = 'Irlanda' WHERE `country_name` = 'Ireland';
+UPDATE `system_countries` SET `country_name` = 'Itália' WHERE `country_name` = 'Italy';
+UPDATE `system_countries` SET `country_name` = 'Costa do Marfim' WHERE `country_name` = 'Ivory Coast';
+UPDATE `system_countries` SET `country_name` = 'Japão' WHERE `country_name` = 'Japan';
+UPDATE `system_countries` SET `country_name` = 'Jordânia' WHERE `country_name` = 'Jordan';
+UPDATE `system_countries` SET `country_name` = 'Cazaquistão' WHERE `country_name` = 'Kazakhstan';
+UPDATE `system_countries` SET `country_name` = 'Quênia' WHERE `country_name` = 'Kenya';
+UPDATE `system_countries` SET `country_name` = 'Coreia do Norte' WHERE `country_name` = 'Korea, Democratic People''s Republic of';
+UPDATE `system_countries` SET `country_name` = 'Coreia do Sul' WHERE `country_name` = 'Korea, Republic of';
+UPDATE `system_countries` SET `country_name` = 'Quirguistão' WHERE `country_name` = 'Kyrgyzstan';
+UPDATE `system_countries` SET `country_name` = 'Laos' WHERE `country_name` = 'Lao People''s Democratic Republic';
+UPDATE `system_countries` SET `country_name` = 'Letônia' WHERE `country_name` = 'Latvia';
+UPDATE `system_countries` SET `country_name` = 'Líbano' WHERE `country_name` = 'Lebanon';
+UPDATE `system_countries` SET `country_name` = 'Lesoto' WHERE `country_name` = 'Lesotho';
+UPDATE `system_countries` SET `country_name` = 'Libéria' WHERE `country_name` = 'Liberia';
+UPDATE `system_countries` SET `country_name` = 'Líbia' WHERE `country_name` = 'Libyan Arab Jamahiriya';
+UPDATE `system_countries` SET `country_name` = 'Lituânia' WHERE `country_name` = 'Lithuania';
+UPDATE `system_countries` SET `country_name` = 'Luxemburgo' WHERE `country_name` = 'Luxembourg';
+UPDATE `system_countries` SET `country_name` = 'Macedônia do Norte' WHERE `country_name` = 'Macedonia';
+UPDATE `system_countries` SET `country_name` = 'Malaui' WHERE `country_name` = 'Malawi';
+UPDATE `system_countries` SET `country_name` = 'Malásia' WHERE `country_name` = 'Malaysia';
+UPDATE `system_countries` SET `country_name` = 'Maldivas' WHERE `country_name` = 'Maldives';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Marshall' WHERE `country_name` = 'Marshall Islands';
+UPDATE `system_countries` SET `country_name` = 'Martinica' WHERE `country_name` = 'Martinique';
+UPDATE `system_countries` SET `country_name` = 'Mauritânia' WHERE `country_name` = 'Mauritania';
+UPDATE `system_countries` SET `country_name` = 'Maurício' WHERE `country_name` = 'Mauritius';
+UPDATE `system_countries` SET `country_name` = 'México' WHERE `country_name` = 'Mexico';
+UPDATE `system_countries` SET `country_name` = 'Micronésia' WHERE `country_name` = 'Micronesia, Federated States of';
+UPDATE `system_countries` SET `country_name` = 'Moldávia' WHERE `country_name` = 'Moldova, Republic of';
+UPDATE `system_countries` SET `country_name` = 'Mônaco' WHERE `country_name` = 'Monaco';
+UPDATE `system_countries` SET `country_name` = 'Mongólia' WHERE `country_name` = 'Mongolia';
+UPDATE `system_countries` SET `country_name` = 'Marrocos' WHERE `country_name` = 'Morocco';
+UPDATE `system_countries` SET `country_name` = 'Moçambique' WHERE `country_name` = 'Mozambique';
+UPDATE `system_countries` SET `country_name` = 'Mianmar' WHERE `country_name` = 'Myanmar';
+UPDATE `system_countries` SET `country_name` = 'Namíbia' WHERE `country_name` = 'Namibia';
+UPDATE `system_countries` SET `country_name` = 'Países Baixos' WHERE `country_name` = 'Netherlands';
+UPDATE `system_countries` SET `country_name` = 'Antilhas Holandesas' WHERE `country_name` = 'Netherlands Antilles';
+UPDATE `system_countries` SET `country_name` = 'Nova Caledônia' WHERE `country_name` = 'New Caledonia';
+UPDATE `system_countries` SET `country_name` = 'Nova Zelândia' WHERE `country_name` = 'New Zealand';
+UPDATE `system_countries` SET `country_name` = 'Nicarágua' WHERE `country_name` = 'Nicaragua';
+UPDATE `system_countries` SET `country_name` = 'Níger' WHERE `country_name` = 'Niger';
+UPDATE `system_countries` SET `country_name` = 'Nigéria' WHERE `country_name` = 'Nigeria';
+UPDATE `system_countries` SET `country_name` = 'Ilha Norfolk' WHERE `country_name` = 'Norfolk Island';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Marianas do Norte' WHERE `country_name` = 'Northern Mariana Islands';
+UPDATE `system_countries` SET `country_name` = 'Noruega' WHERE `country_name` = 'Norway';
+UPDATE `system_countries` SET `country_name` = 'Omã' WHERE `country_name` = 'Oman';
+UPDATE `system_countries` SET `country_name` = 'Paquistão' WHERE `country_name` = 'Pakistan';
+UPDATE `system_countries` SET `country_name` = 'Palestina' WHERE `country_name` = 'Palestine';
+UPDATE `system_countries` SET `country_name` = 'Panamá' WHERE `country_name` = 'Panama';
+UPDATE `system_countries` SET `country_name` = 'Papua-Nova Guiné' WHERE `country_name` = 'Papua New Guinea';
+UPDATE `system_countries` SET `country_name` = 'Paraguai' WHERE `country_name` = 'Paraguay';
+UPDATE `system_countries` SET `country_name` = 'Filipinas' WHERE `country_name` = 'Philippines';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Pitcairn' WHERE `country_name` = 'Pitcairn';
+UPDATE `system_countries` SET `country_name` = 'Polônia' WHERE `country_name` = 'Poland';
+UPDATE `system_countries` SET `country_name` = 'Porto Rico' WHERE `country_name` = 'Puerto Rico';
+UPDATE `system_countries` SET `country_name` = 'Catar' WHERE `country_name` = 'Qatar';
+UPDATE `system_countries` SET `country_name` = 'Reunião' WHERE `country_name` = 'Reunion';
+UPDATE `system_countries` SET `country_name` = 'Romênia' WHERE `country_name` = 'Romania';
+UPDATE `system_countries` SET `country_name` = 'Rússia' WHERE `country_name` = 'Russian Federation';
+UPDATE `system_countries` SET `country_name` = 'Ruanda' WHERE `country_name` = 'Rwanda';
+UPDATE `system_countries` SET `country_name` = 'São Cristóvão e Névis' WHERE `country_name` = 'Saint Kitts and Nevis';
+UPDATE `system_countries` SET `country_name` = 'Santa Lúcia' WHERE `country_name` = 'Saint Lucia';
+UPDATE `system_countries` SET `country_name` = 'São Vicente e Granadinas' WHERE `country_name` = 'Saint Vincent and the Grenadines';
+UPDATE `system_countries` SET `country_name` = 'São Tomé e Príncipe' WHERE `country_name` = 'Sao Tome and Principe';
+UPDATE `system_countries` SET `country_name` = 'Arábia Saudita' WHERE `country_name` = 'Saudi Arabia';
+UPDATE `system_countries` SET `country_name` = 'Sérvia' WHERE `country_name` = 'Serbia';
+UPDATE `system_countries` SET `country_name` = 'Seicheles' WHERE `country_name` = 'Seychelles';
+UPDATE `system_countries` SET `country_name` = 'Serra Leoa' WHERE `country_name` = 'Sierra Leone';
+UPDATE `system_countries` SET `country_name` = 'Singapura' WHERE `country_name` = 'Singapore';
+UPDATE `system_countries` SET `country_name` = 'Eslováquia' WHERE `country_name` = 'Slovakia';
+UPDATE `system_countries` SET `country_name` = 'Eslovênia' WHERE `country_name` = 'Slovenia';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Salomão' WHERE `country_name` = 'Solomon Islands';
+UPDATE `system_countries` SET `country_name` = 'Somália' WHERE `country_name` = 'Somalia';
+UPDATE `system_countries` SET `country_name` = 'África do Sul' WHERE `country_name` = 'South Africa';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Geórgia do Sul e Sandwich do Sul' WHERE `country_name` = 'South Georgia South Sandwich Islands';
+UPDATE `system_countries` SET `country_name` = 'Espanha' WHERE `country_name` = 'Spain';
+UPDATE `system_countries` SET `country_name` = 'Santa Helena' WHERE `country_name` = 'St. Helena';
+UPDATE `system_countries` SET `country_name` = 'Saint-Pierre e Miquelon' WHERE `country_name` = 'St. Pierre and Miquelon';
+UPDATE `system_countries` SET `country_name` = 'Sudão' WHERE `country_name` = 'Sudan';
+UPDATE `system_countries` SET `country_name` = 'Svalbard e Jan Mayen' WHERE `country_name` = 'Svalbard and Jan Mayen Islands';
+UPDATE `system_countries` SET `country_name` = 'Essuatíni' WHERE `country_name` = 'Swaziland';
+UPDATE `system_countries` SET `country_name` = 'Suécia' WHERE `country_name` = 'Sweden';
+UPDATE `system_countries` SET `country_name` = 'Suíça' WHERE `country_name` = 'Switzerland';
+UPDATE `system_countries` SET `country_name` = 'Síria' WHERE `country_name` = 'Syrian Arab Republic';
+UPDATE `system_countries` SET `country_name` = 'Tadjiquistão' WHERE `country_name` = 'Tajikistan';
+UPDATE `system_countries` SET `country_name` = 'Tanzânia' WHERE `country_name` = 'Tanzania, United Republic of';
+UPDATE `system_countries` SET `country_name` = 'Tailândia' WHERE `country_name` = 'Thailand';
+UPDATE `system_countries` SET `country_name` = 'Trinidad e Tobago' WHERE `country_name` = 'Trinidad and Tobago';
+UPDATE `system_countries` SET `country_name` = 'Tunísia' WHERE `country_name` = 'Tunisia';
+UPDATE `system_countries` SET `country_name` = 'Turquia' WHERE `country_name` = 'Turkey';
+UPDATE `system_countries` SET `country_name` = 'Turcomenistão' WHERE `country_name` = 'Turkmenistan';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Turcas e Caicos' WHERE `country_name` = 'Turks and Caicos Islands';
+UPDATE `system_countries` SET `country_name` = 'Ucrânia' WHERE `country_name` = 'Ukraine';
+UPDATE `system_countries` SET `country_name` = 'Emirados Árabes Unidos' WHERE `country_name` = 'United Arab Emirates';
+UPDATE `system_countries` SET `country_name` = 'Reino Unido' WHERE `country_name` = 'United Kingdom';
+UPDATE `system_countries` SET `country_name` = 'Estados Unidos' WHERE `country_name` = 'United States';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Menores Distantes dos Estados Unidos' WHERE `country_name` = 'United States minor outlying islands';
+UPDATE `system_countries` SET `country_name` = 'Uruguai' WHERE `country_name` = 'Uruguay';
+UPDATE `system_countries` SET `country_name` = 'Uzbequistão' WHERE `country_name` = 'Uzbekistan';
+UPDATE `system_countries` SET `country_name` = 'Vaticano' WHERE `country_name` = 'Vatican City State';
+UPDATE `system_countries` SET `country_name` = 'Vietnã' WHERE `country_name` = 'Vietnam';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Virgens Britânicas' WHERE `country_name` = 'Virgin Islands (British)';
+UPDATE `system_countries` SET `country_name` = 'Ilhas Virgens Americanas' WHERE `country_name` = 'Virgin Islands (U.S.)';
+UPDATE `system_countries` SET `country_name` = 'Wallis e Futuna' WHERE `country_name` = 'Wallis and Futuna Islands';
+UPDATE `system_countries` SET `country_name` = 'Saara Ocidental' WHERE `country_name` = 'Western Sahara';
+UPDATE `system_countries` SET `country_name` = 'Iêmen' WHERE `country_name` = 'Yemen';
+UPDATE `system_countries` SET `country_name` = 'República Democrática do Congo' WHERE `country_name` = 'Zaire';
+UPDATE `system_countries` SET `country_name` = 'Zâmbia' WHERE `country_name` = 'Zambia';
+UPDATE `system_countries` SET `country_name` = 'Zimbábue' WHERE `country_name` = 'Zimbabwe';
+
+-- Gêneros
+UPDATE `system_genders` SET `gender_name` = 'Masculino' WHERE `gender_name` = 'Male';
+UPDATE `system_genders` SET `gender_name` = 'Feminino' WHERE `gender_name` = 'Female';
+UPDATE `system_genders` SET `gender_name` = 'Outro' WHERE `gender_name` = 'Other';
+
+-- Categorias de páginas
+UPDATE `pages_categories` SET `category_name` = 'Carros e veículos' WHERE `category_name` = 'Cars and Vehicles';
+UPDATE `pages_categories` SET `category_name` = 'Comédia' WHERE `category_name` = 'Comedy';
+UPDATE `pages_categories` SET `category_name` = 'Economia e comércio' WHERE `category_name` = 'Economics and Trade';
+UPDATE `pages_categories` SET `category_name` = 'Educação' WHERE `category_name` = 'Education';
+UPDATE `pages_categories` SET `category_name` = 'Entretenimento' WHERE `category_name` = 'Entertainment';
+UPDATE `pages_categories` SET `category_name` = 'Filmes e animação' WHERE `category_name` = 'Movies and Animation';
+UPDATE `pages_categories` SET `category_name` = 'Jogos eletrônicos' WHERE `category_name` = 'Gaming';
+UPDATE `pages_categories` SET `category_name` = 'História e curiosidades' WHERE `category_name` = 'History and Facts';
+UPDATE `pages_categories` SET `category_name` = 'Estilo de vida' WHERE `category_name` = 'Live Style';
+UPDATE `pages_categories` SET `category_name` = 'Natureza' WHERE `category_name` = 'Natural';
+UPDATE `pages_categories` SET `category_name` = 'Notícias e política' WHERE `category_name` = 'News and Politics';
+UPDATE `pages_categories` SET `category_name` = 'Pessoas e nações' WHERE `category_name` = 'People and Nations';
+UPDATE `pages_categories` SET `category_name` = 'Pets e animais' WHERE `category_name` = 'Pets and Animals';
+UPDATE `pages_categories` SET `category_name` = 'Lugares e regiões' WHERE `category_name` = 'Places and Regions';
+UPDATE `pages_categories` SET `category_name` = 'Ciência e tecnologia' WHERE `category_name` = 'Science and Technology';
+UPDATE `pages_categories` SET `category_name` = 'Esporte' WHERE `category_name` = 'Sport';
+UPDATE `pages_categories` SET `category_name` = 'Viagens e eventos' WHERE `category_name` = 'Travel and Events';
+UPDATE `pages_categories` SET `category_name` = 'Outros' WHERE `category_name` = 'Other';
+
+-- Categorias de grupos
+UPDATE `groups_categories` SET `category_name` = 'Carros e veículos' WHERE `category_name` = 'Cars and Vehicles';
+UPDATE `groups_categories` SET `category_name` = 'Comédia' WHERE `category_name` = 'Comedy';
+UPDATE `groups_categories` SET `category_name` = 'Economia e comércio' WHERE `category_name` = 'Economics and Trade';
+UPDATE `groups_categories` SET `category_name` = 'Educação' WHERE `category_name` = 'Education';
+UPDATE `groups_categories` SET `category_name` = 'Entretenimento' WHERE `category_name` = 'Entertainment';
+UPDATE `groups_categories` SET `category_name` = 'Filmes e animação' WHERE `category_name` = 'Movies and Animation';
+UPDATE `groups_categories` SET `category_name` = 'Jogos eletrônicos' WHERE `category_name` = 'Gaming';
+UPDATE `groups_categories` SET `category_name` = 'História e curiosidades' WHERE `category_name` = 'History and Facts';
+UPDATE `groups_categories` SET `category_name` = 'Estilo de vida' WHERE `category_name` = 'Live Style';
+UPDATE `groups_categories` SET `category_name` = 'Natureza' WHERE `category_name` = 'Natural';
+UPDATE `groups_categories` SET `category_name` = 'Notícias e política' WHERE `category_name` = 'News and Politics';
+UPDATE `groups_categories` SET `category_name` = 'Pessoas e nações' WHERE `category_name` = 'People and Nations';
+UPDATE `groups_categories` SET `category_name` = 'Pets e animais' WHERE `category_name` = 'Pets and Animals';
+UPDATE `groups_categories` SET `category_name` = 'Lugares e regiões' WHERE `category_name` = 'Places and Regions';
+UPDATE `groups_categories` SET `category_name` = 'Ciência e tecnologia' WHERE `category_name` = 'Science and Technology';
+UPDATE `groups_categories` SET `category_name` = 'Esporte' WHERE `category_name` = 'Sport';
+UPDATE `groups_categories` SET `category_name` = 'Viagens e eventos' WHERE `category_name` = 'Travel and Events';
+UPDATE `groups_categories` SET `category_name` = 'Outros' WHERE `category_name` = 'Other';
+
+-- Categorias de eventos
+UPDATE `events_categories` SET `category_name` = 'Arte' WHERE `category_name` = 'Art';
+UPDATE `events_categories` SET `category_name` = 'Causas' WHERE `category_name` = 'Causes';
+UPDATE `events_categories` SET `category_name` = 'Artesanato' WHERE `category_name` = 'Crafts';
+UPDATE `events_categories` SET `category_name` = 'Dança' WHERE `category_name` = 'Dance';
+UPDATE `events_categories` SET `category_name` = 'Bebidas' WHERE `category_name` = 'Drinks';
+UPDATE `events_categories` SET `category_name` = 'Cinema' WHERE `category_name` = 'Film';
+UPDATE `events_categories` SET `category_name` = 'Gastronomia' WHERE `category_name` = 'Food';
+UPDATE `events_categories` SET `category_name` = 'Jogos' WHERE `category_name` = 'Games';
+UPDATE `events_categories` SET `category_name` = 'Jardinagem' WHERE `category_name` = 'Gardening';
+UPDATE `events_categories` SET `category_name` = 'Saúde' WHERE `category_name` = 'Health';
+UPDATE `events_categories` SET `category_name` = 'Casa' WHERE `category_name` = 'Home';
+UPDATE `events_categories` SET `category_name` = 'Literatura' WHERE `category_name` = 'Literature';
+UPDATE `events_categories` SET `category_name` = 'Música' WHERE `category_name` = 'Music';
+UPDATE `events_categories` SET `category_name` = 'Outros' WHERE `category_name` = 'Other';
+UPDATE `events_categories` SET `category_name` = 'Festa' WHERE `category_name` = 'Party';
+UPDATE `events_categories` SET `category_name` = 'Religião' WHERE `category_name` = 'Religion';
+UPDATE `events_categories` SET `category_name` = 'Compras' WHERE `category_name` = 'Shopping';
+UPDATE `events_categories` SET `category_name` = 'Esportes' WHERE `category_name` = 'Sports';
+UPDATE `events_categories` SET `category_name` = 'Teatro' WHERE `category_name` = 'Theater';
+UPDATE `events_categories` SET `category_name` = 'Bem-estar' WHERE `category_name` = 'Wellness';
+
+-- Categorias do blog
+UPDATE `blogs_categories` SET `category_name` = 'Arte' WHERE `category_name` = 'Art';
+UPDATE `blogs_categories` SET `category_name` = 'Causas' WHERE `category_name` = 'Causes';
+UPDATE `blogs_categories` SET `category_name` = 'Artesanato' WHERE `category_name` = 'Crafts';
+UPDATE `blogs_categories` SET `category_name` = 'Dança' WHERE `category_name` = 'Dance';
+UPDATE `blogs_categories` SET `category_name` = 'Bebidas' WHERE `category_name` = 'Drinks';
+UPDATE `blogs_categories` SET `category_name` = 'Cinema' WHERE `category_name` = 'Film';
+UPDATE `blogs_categories` SET `category_name` = 'Gastronomia' WHERE `category_name` = 'Food';
+UPDATE `blogs_categories` SET `category_name` = 'Jogos' WHERE `category_name` = 'Games';
+UPDATE `blogs_categories` SET `category_name` = 'Jardinagem' WHERE `category_name` = 'Gardening';
+UPDATE `blogs_categories` SET `category_name` = 'Saúde' WHERE `category_name` = 'Health';
+UPDATE `blogs_categories` SET `category_name` = 'Casa' WHERE `category_name` = 'Home';
+UPDATE `blogs_categories` SET `category_name` = 'Literatura' WHERE `category_name` = 'Literature';
+UPDATE `blogs_categories` SET `category_name` = 'Música' WHERE `category_name` = 'Music';
+UPDATE `blogs_categories` SET `category_name` = 'Outros' WHERE `category_name` = 'Other';
+UPDATE `blogs_categories` SET `category_name` = 'Festa' WHERE `category_name` = 'Party';
+UPDATE `blogs_categories` SET `category_name` = 'Religião' WHERE `category_name` = 'Religion';
+UPDATE `blogs_categories` SET `category_name` = 'Compras' WHERE `category_name` = 'Shopping';
+UPDATE `blogs_categories` SET `category_name` = 'Esportes' WHERE `category_name` = 'Sports';
+UPDATE `blogs_categories` SET `category_name` = 'Teatro' WHERE `category_name` = 'Theater';
+UPDATE `blogs_categories` SET `category_name` = 'Bem-estar' WHERE `category_name` = 'Wellness';
+
+-- Gêneros de filmes
+UPDATE `movies_genres` SET `genre_name` = 'Ação' WHERE `genre_name` = 'Action';
+UPDATE `movies_genres` SET `genre_name` = 'Aventura' WHERE `genre_name` = 'Adventure';
+UPDATE `movies_genres` SET `genre_name` = 'Animação' WHERE `genre_name` = 'Animation';
+UPDATE `movies_genres` SET `genre_name` = 'Comédia' WHERE `genre_name` = 'Comedy';
+UPDATE `movies_genres` SET `genre_name` = 'Policial' WHERE `genre_name` = 'Crime';
+UPDATE `movies_genres` SET `genre_name` = 'Documentário' WHERE `genre_name` = 'Documentary';
+UPDATE `movies_genres` SET `genre_name` = 'Família' WHERE `genre_name` = 'Family';
+UPDATE `movies_genres` SET `genre_name` = 'Fantasia' WHERE `genre_name` = 'Fantasy';
+UPDATE `movies_genres` SET `genre_name` = 'Histórico' WHERE `genre_name` = 'History';
+UPDATE `movies_genres` SET `genre_name` = 'Terror' WHERE `genre_name` = 'Horror';
+UPDATE `movies_genres` SET `genre_name` = 'Mitológico' WHERE `genre_name` = 'Mythological';
+UPDATE `movies_genres` SET `genre_name` = 'Esporte' WHERE `genre_name` = 'Sport';
+UPDATE `movies_genres` SET `genre_name` = 'Programa de TV' WHERE `genre_name` = 'TV Show';
+UPDATE `movies_genres` SET `genre_name` = 'Suspense' WHERE `genre_name` = 'Thriller';
+UPDATE `movies_genres` SET `genre_name` = 'Guerra' WHERE `genre_name` = 'War';
+
+-- Categorias do marketplace
+UPDATE `market_categories` SET `category_name` = 'Roupas e acessórios' WHERE `category_name` = 'Apparel &amp; Accessories';
+UPDATE `market_categories` SET `category_name` = 'Carros e veículos' WHERE `category_name` = 'Autos &amp; Vehicles';
+UPDATE `market_categories` SET `category_name` = 'Produtos para bebês e crianças' WHERE `category_name` = 'Baby &amp; Children&#039;s Products';
+UPDATE `market_categories` SET `category_name` = 'Produtos e serviços de beleza' WHERE `category_name` = 'Beauty Products &amp; Services';
+UPDATE `market_categories` SET `category_name` = 'Computadores e periféricos' WHERE `category_name` = 'Computers &amp; Peripherals';
+UPDATE `market_categories` SET `category_name` = 'Eletrônicos' WHERE `category_name` = 'Consumer Electronics';
+UPDATE `market_categories` SET `category_name` = 'Serviços de relacionamento' WHERE `category_name` = 'Dating Services';
+UPDATE `market_categories` SET `category_name` = 'Serviços financeiros' WHERE `category_name` = 'Financial Services';
+UPDATE `market_categories` SET `category_name` = 'Presentes e datas especiais' WHERE `category_name` = 'Gifts &amp; Occasions';
+UPDATE `market_categories` SET `category_name` = 'Casa e jardim' WHERE `category_name` = 'Home &amp; Garden';
+UPDATE `market_categories` SET `category_name` = 'Outros' WHERE `category_name` = 'Other';
+
+-- Categorias de ofertas
+UPDATE `offers_categories` SET `category_name` = 'Roupas e acessórios' WHERE `category_name` = 'Apparel &amp; Accessories';
+UPDATE `offers_categories` SET `category_name` = 'Carros e veículos' WHERE `category_name` = 'Autos &amp; Vehicles';
+UPDATE `offers_categories` SET `category_name` = 'Produtos para bebês e crianças' WHERE `category_name` = 'Baby &amp; Children&#039;s Products';
+UPDATE `offers_categories` SET `category_name` = 'Produtos e serviços de beleza' WHERE `category_name` = 'Beauty Products &amp; Services';
+UPDATE `offers_categories` SET `category_name` = 'Computadores e periféricos' WHERE `category_name` = 'Computers &amp; Peripherals';
+UPDATE `offers_categories` SET `category_name` = 'Eletrônicos' WHERE `category_name` = 'Consumer Electronics';
+UPDATE `offers_categories` SET `category_name` = 'Serviços de relacionamento' WHERE `category_name` = 'Dating Services';
+UPDATE `offers_categories` SET `category_name` = 'Serviços financeiros' WHERE `category_name` = 'Financial Services';
+UPDATE `offers_categories` SET `category_name` = 'Presentes e datas especiais' WHERE `category_name` = 'Gifts &amp; Occasions';
+UPDATE `offers_categories` SET `category_name` = 'Casa e jardim' WHERE `category_name` = 'Home &amp; Garden';
+UPDATE `offers_categories` SET `category_name` = 'Outros' WHERE `category_name` = 'Other';
+
+-- Categorias de vagas
+UPDATE `jobs_categories` SET `category_name` = 'Administrativo e escritório' WHERE `category_name` = 'Admin &amp; Office';
+UPDATE `jobs_categories` SET `category_name` = 'Arte e design' WHERE `category_name` = 'Art &amp; Design';
+UPDATE `jobs_categories` SET `category_name` = 'Operações de negócios' WHERE `category_name` = 'Business Operations';
+UPDATE `jobs_categories` SET `category_name` = 'Limpeza e conservação' WHERE `category_name` = 'Cleaning &amp; Facilities';
+UPDATE `jobs_categories` SET `category_name` = 'Serviços sociais e comunitários' WHERE `category_name` = 'Community &amp; Social Services';
+UPDATE `jobs_categories` SET `category_name` = 'Informática e dados' WHERE `category_name` = 'Computer &amp; Data';
+UPDATE `jobs_categories` SET `category_name` = 'Construção e mineração' WHERE `category_name` = 'Construction &amp; Mining';
+UPDATE `jobs_categories` SET `category_name` = 'Educação' WHERE `category_name` = 'Education';
+UPDATE `jobs_categories` SET `category_name` = 'Agricultura e silvicultura' WHERE `category_name` = 'Farming &amp; Forestry';
+UPDATE `jobs_categories` SET `category_name` = 'Área da saúde' WHERE `category_name` = 'Healthcare';
+UPDATE `jobs_categories` SET `category_name` = 'Instalação, manutenção e reparos' WHERE `category_name` = 'Installation, Maintenance &amp; Repair';
+UPDATE `jobs_categories` SET `category_name` = 'Jurídico' WHERE `category_name` = 'Legal';
+UPDATE `jobs_categories` SET `category_name` = 'Gestão' WHERE `category_name` = 'Management';
+UPDATE `jobs_categories` SET `category_name` = 'Indústria' WHERE `category_name` = 'Manufacturing';
+UPDATE `jobs_categories` SET `category_name` = 'Mídia e comunicação' WHERE `category_name` = 'Media &amp; Communication';
+UPDATE `jobs_categories` SET `category_name` = 'Cuidados pessoais' WHERE `category_name` = 'Personal Care';
+UPDATE `jobs_categories` SET `category_name` = 'Segurança' WHERE `category_name` = 'Protective Services';
+UPDATE `jobs_categories` SET `category_name` = 'Restaurantes e hotelaria' WHERE `category_name` = 'Restaurant &amp; Hospitality';
+UPDATE `jobs_categories` SET `category_name` = 'Varejo e vendas' WHERE `category_name` = 'Retail &amp; Sales';
+UPDATE `jobs_categories` SET `category_name` = 'Ciência e engenharia' WHERE `category_name` = 'Science &amp; Engineering';
+UPDATE `jobs_categories` SET `category_name` = 'Esportes e entretenimento' WHERE `category_name` = 'Sports &amp; Entertainment';
+UPDATE `jobs_categories` SET `category_name` = 'Transporte' WHERE `category_name` = 'Transportation';
+UPDATE `jobs_categories` SET `category_name` = 'Outros' WHERE `category_name` = 'Other';
+

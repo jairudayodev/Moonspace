@@ -2,7 +2,7 @@
     <h6 class="modal-title">
         <i class="fa fa-share mr5"></i>{__("Share")}
     </h6>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>

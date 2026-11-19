@@ -46,7 +46,7 @@
                                     {__("Funding Donation")} = <strong>{print_money($row['price'])}</strong>
                                 {/if}
                             </td>
-                            <td>{$row['time']|date_format:"%e %B %Y"}</td>
+                            <td>{$row['time']|date_br:'long':true}</td>
                             <td>
                                 <button data-toggle="tooltip" data-placement="top" title='{__("View Bank Receipt")}' class="btn btn-sm btn-icon btn-rounded btn-info js_lightbox-nodata" data-image="{$system['system_uploads']}/{$row['bank_receipt']}">
                                     <i class="fa fa-paperclip"></i>

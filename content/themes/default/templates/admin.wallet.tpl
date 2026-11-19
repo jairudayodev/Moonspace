@@ -173,7 +173,7 @@
                                         {if $system['show_usernames_enabled']}{$row['user_name']}{else}{$row['user_firstname']} {$row['user_lastname']}{/if}
                                     </a>
                                 </td>
-                                <td>{print_money($row['amount']|number_format:2)}</td>
+                                <td>{print_money($row['amount'])}</td>
                                 <td>
                                     <span class="badge badge-pill badge-lg badge-{$row['method_color']}">
                                         {$row['method']|ucfirst}
